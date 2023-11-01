@@ -1,0 +1,39 @@
+import { db } from "../config/firebase";
+import { addDoc, getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+
+const boardgamesCollectionRef = collection(db, "Boardgames");
+
+export const getBoardgames = async () => {
+  const boardgames = [];
+  try {
+    const data = await getDocs(boardgamesCollectionRef);
+    data.forEach((doc) => {
+      boardgames.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return boardgames;
+  } catch (error) {
+    console.error("Error getting boardgames: ", error);
+  }
+};
+
+export const addBoardgame = async (boardgameData) => {
+  try {
+    await addDoc(boardgamesCollectionRef, boardgameData);
+    console.log("Boardgame added successfully!");
+  } catch (error) {
+    console.error("Error adding boardgame: ", error);
+  }
+};
+
+export const deleteBoardgame = async (id) => {
+  const boardgameDocRef = doc(db, "Boardgames", id);
+  try {
+    await deleteDoc(boardgameDocRef);
+    console.log("Boardgame deleted successfully!");
+  } catch (error) {
+    console.error("Error deleting boardgame: ", error);
+  }
+};
