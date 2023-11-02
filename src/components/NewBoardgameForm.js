@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { db } from "../config/firebase";
+import { addDoc, collection, doc } from "firebase/firestore";
+import { storage } from "../config/firebase";
 
 function NewBoardgameForm({ onSubmitBoardgame }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
@@ -9,8 +13,24 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
   const [isNewBoardgameLuck, setNewBoardgameLuck] = useState(false);
   const [isNewBoardgameSkill, setNewBoardgameSkill] = useState(false);
   const [isNewBoardgameStrategy, setNewBoardgameStrategy] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleSubmit = () => {
+  const handleImageUpload = async () => {
+    if (selectedImage) {
+      const imageRef = ref(storage, `${selectedImage.name}`);
+      try {
+        await uploadBytes(imageRef, selectedImage);
+        const imageUrl = await getDownloadURL(imageRef);
+        return imageUrl;
+      } catch (error) {
+        console.error("Error uploading image: ", error);
+      }
+    }
+  };
+
+  const handleSubmit = async () => {
+    const imageUrl = await handleImageUpload();
+
     onSubmitBoardgame({
       name: newBoardgameName,
       location: newBoardgameLocation,
@@ -22,6 +42,7 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
         skill: isNewBoardgameSkill,
         strategy: isNewBoardgameStrategy,
       },
+      imageUrl: imageUrl,
     });
 
     // Reset form fields
@@ -33,6 +54,7 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
     setNewBoardgameLuck(false);
     setNewBoardgameSkill(false);
     setNewBoardgameStrategy(false);
+    setSelectedImage(null);
   };
 
   return (
@@ -79,6 +101,10 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
         type="checkbox"
         checked={isNewBoardgameStrategy}
         onChange={(e) => setNewBoardgameStrategy(e.target.checked)}
+      />
+      <input
+        type="file"
+        onChange={(e) => setSelectedImage(e.target.files[0])}
       />
       <button onClick={handleSubmit}>Submit</button>
     </div>

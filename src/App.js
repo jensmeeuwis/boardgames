@@ -33,14 +33,15 @@ function App() {
     setBoardgamesList(updatedBoardgames);
   };
 
-
-
   return (
     <div className="App">
       <Auth />
       <h1>Boardgames List</h1>
       <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
-      <BoardgameList boardgames={boardgamesList} onDeleteBoardgame={handleDeleteBoardgame} />
+      <BoardgameList
+        boardgames={boardgamesList}
+        onDeleteBoardgame={handleDeleteBoardgame}
+      />
     </div>
   );
 }

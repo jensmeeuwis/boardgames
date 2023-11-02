@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 
 function DeleteBoardgameForm({ onSubmitBoardgame }) {
- 
-
   return (
     <div>
       <button onClick={handleSubmit}>Submit</button>

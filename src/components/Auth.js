@@ -28,6 +28,7 @@ export const Auth = () => {
 
   return (
     <div>
+      {console.log(auth?.currentUser?.email)}
       <h1>{auth?.currentUser?.email}</h1>
       <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
       <input

@@ -13,7 +13,16 @@ function BoardgameList({ boardgames, onDeleteBoardgame }) {
           {Object.entries(boardgame.category).map(
             ([category, value]) => value && <li key={category}>{category}</li>
           )}
-          <button onClick={() => onDeleteBoardgame(boardgame.id)}>Delete</button>
+          {boardgame.imageUrl && (
+            <img
+              src={boardgame.imageUrl}
+              alt={boardgame.name}
+              style={{ maxWidth: "400px" }}
+            />
+          )}
+          <button onClick={() => onDeleteBoardgame(boardgame.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>

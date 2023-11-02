@@ -1,5 +1,11 @@
 import { db } from "../config/firebase";
-import { addDoc, getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  addDoc,
+  getDocs,
+  collection,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 const boardgamesCollectionRef = collection(db, "Boardgames");
 
@@ -8,9 +14,10 @@ export const getBoardgames = async () => {
   try {
     const data = await getDocs(boardgamesCollectionRef);
     data.forEach((doc) => {
+      const boardgameData = doc.data();
       boardgames.push({
         id: doc.id,
-        ...doc.data(),
+        ...boardgameData,
       });
     });
     return boardgames;
