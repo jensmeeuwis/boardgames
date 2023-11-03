@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { db } from "../config/firebase";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, limit } from "firebase/firestore";
 import { storage } from "../config/firebase";
 
 function NewBoardgameForm({ onSubmitBoardgame }) {
@@ -14,6 +14,7 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
   const [isNewBoardgameSkill, setNewBoardgameSkill] = useState(false);
   const [isNewBoardgameStrategy, setNewBoardgameStrategy] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [newBoardgameRating, setNewBoardgameRating] = useState(0);
 
   const handleImageUpload = async () => {
     if (selectedImage) {
@@ -43,6 +44,7 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
         strategy: isNewBoardgameStrategy,
       },
       imageUrl: imageUrl,
+      rating: newBoardgameRating,
     });
 
     // Reset form fields
@@ -55,7 +57,14 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
     setNewBoardgameSkill(false);
     setNewBoardgameStrategy(false);
     setSelectedImage(null);
+    setNewBoardgameRating(0);
   };
+
+  const handleRatingChange = (e) => {
+    const inputValue = parseInt(e.target.value, 10);
+    const limitedValue = Math.min(Math.max(inputValue, 0), 5);
+    setNewBoardgameRating(limitedValue);
+  }
 
   return (
     <div>
@@ -106,9 +115,17 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
         type="file"
         onChange={(e) => setSelectedImage(e.target.files[0])}
       />
+      <input
+        placeholder="Rating"
+        value={newBoardgameRating}
+        type="number"
+        onChange={handleRatingChange}
+      />
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
 
 export default NewBoardgameForm;
+
+//

@@ -1,4 +1,5 @@
 import React from "react";
+import { Rating } from "@material-tailwind/react";
 
 function BoardgameList({ boardgames, onDeleteBoardgame }) {
   return (
@@ -20,6 +21,7 @@ function BoardgameList({ boardgames, onDeleteBoardgame }) {
               style={{ maxWidth: "400px" }}
             />
           )}
+          <Rating className="w-10" value={boardgame.rating} readonly />
           <button onClick={() => onDeleteBoardgame(boardgame.id)}>
             Delete
           </button>

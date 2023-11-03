@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Header from "./components/Header";
 import "./App.css";
 import { getBoardgames, addBoardgame, deleteBoardgame } from "./api/boardgames";
 import BoardgameList from "./components/BoardgameList";
@@ -35,13 +36,14 @@ function App() {
 
   return (
     <div className="App">
-      <Auth />
-      <h1>Boardgames List</h1>
-      <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
+      {/* <Header/> */}
       <BoardgameList
         boardgames={boardgamesList}
         onDeleteBoardgame={handleDeleteBoardgame}
       />
+      <Auth />
+      <h1>Boardgames List</h1>
+      <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
     </div>
   );
 }
