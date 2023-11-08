@@ -2,12 +2,10 @@
 
 import React, { useState } from "react";
 
-function DeleteBoardgameForm({ onSubmitBoardgame }) {
+export default function DeleteBoardgameForm({ onSubmitBoardgame }) {
   return (
     <div>
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
-
-export default DeleteBoardgameForm;

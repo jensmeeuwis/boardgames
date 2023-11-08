@@ -4,7 +4,7 @@ import { db } from "../config/firebase";
 import { addDoc, collection, doc, limit } from "firebase/firestore";
 import { storage } from "../config/firebase";
 
-function NewBoardgameForm({ onSubmitBoardgame }) {
+export default function NewBoardgameForm({ onSubmitBoardgame }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
   const [newBoardgameLocation, setNewBoardgameLocation] = useState("");
   const [newBoardgamePlayers, setNewBoardgamePlayers] = useState("");
@@ -125,7 +125,3 @@ function NewBoardgameForm({ onSubmitBoardgame }) {
     </div>
   );
 }
-
-export default NewBoardgameForm;
-
-//

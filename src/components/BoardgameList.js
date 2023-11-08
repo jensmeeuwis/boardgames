@@ -1,16 +1,16 @@
 import React from "react";
 import { Rating } from "@material-tailwind/react";
 
-function BoardgameList({ boardgames, onDeleteBoardgame }) {
+export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
   return (
     <div>
       {boardgames.map((boardgame) => (
         <div key={boardgame.id}>
-          <h1>{boardgame.name}</h1>
-          <p>{boardgame.location}</p>
-          <p>{boardgame.players}</p>
-          <p>{boardgame.gamemode}</p>
-          <p>{boardgame.duration}</p>
+          <h1>Naam: {boardgame.name}</h1>
+          <p>Location: {boardgame.location}</p>
+          <p>Players: {boardgame.players}</p>
+          <p>Gamemode: {boardgame.gamemode}</p>
+          <p>Duration: {boardgame.duration}</p>
           {Object.entries(boardgame.category).map(
             ([category, value]) => value && <li key={category}>{category}</li>
           )}
@@ -30,5 +30,3 @@ function BoardgameList({ boardgames, onDeleteBoardgame }) {
     </div>
   );
 }
-
-export default BoardgameList;

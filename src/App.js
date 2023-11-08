@@ -4,10 +4,13 @@ import "./App.css";
 import { getBoardgames, addBoardgame, deleteBoardgame } from "./api/boardgames";
 import BoardgameList from "./components/BoardgameList";
 import NewBoardgameForm from "./components/NewBoardgameForm";
-import { Auth } from "./components/Auth";
+import Auth from "./components/Auth";
+import SortBoardgames from "./components/SortBoardgames";
 
-function App() {
+export default function App() {
   const [boardgamesList, setBoardgamesList] = useState([]);
+  const [sortedBoardgamesList, setSortedBoardgamesList] = useState([]);
+  const [searchedBoardgames, setSearchedBoardgames] = useState([]);
 
   useEffect(() => {
     // Haal de bordspellen op wanneer de component wordt geladen
@@ -37,8 +40,9 @@ function App() {
   return (
     <div className="App">
       {/* <Header/> */}
+      <SortBoardgames boardgamesList={boardgamesList} setSortedBoardgamesList={setSortedBoardgamesList}/>
       <BoardgameList
-        boardgames={boardgamesList}
+        boardgames={sortedBoardgamesList}
         onDeleteBoardgame={handleDeleteBoardgame}
       />
       <Auth />
@@ -47,5 +51,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -1,18 +1,16 @@
 import React from 'react';
 
-const Header = () => {
+export default function Header() {
   return (
-    <header className="bg-blue-500 p-4">
+    <header className="p-4 bg-blue-500">
       <nav className="flex items-center justify-between">
-        <div className="text-2xl text-white font-bold">Boardgames</div>
+        <div className="text-2xl font-bold text-white">Boardgames</div>
         <ul className="flex space-x-4 text-white">
-          <li className="hover:underline cursor-pointer">Home</li>
-          <li className="hover:underline cursor-pointer">Bla</li>
-          <li className="hover:underline cursor-pointer">Bloe</li>
+          <li className="cursor-pointer hover:underline">Home</li>
+          <li className="cursor-pointer hover:underline">Bla</li>
+          <li className="cursor-pointer hover:underline">Bloe</li>
         </ul>
       </nav>
     </header>
   );
 };
-
-export default Header;
