@@ -7,6 +7,7 @@ import NewBoardgameForm from "./components/NewBoardgameForm";
 import Auth from "./components/Auth";
 import SortBoardgames from "./components/SortBoardgames";
 import Logout from "./components/Logout";
+import SearchBoardgames from "./components/SearchBoardgames";
 
 export default function App() {
   const [boardgamesList, setBoardgamesList] = useState([]);
@@ -18,6 +19,7 @@ export default function App() {
     // Haal de bordspellen op wanneer de component wordt geladen
     getBoardgames().then((data) => {
       setBoardgamesList(data);
+      setSearchedBoardgames(data); // Initialiseer de lijst van gezocht bordspellen met alle bordspellen
     });
   }, []);
 
@@ -28,6 +30,7 @@ export default function App() {
     // Haal de bijgewerkte lijst van bordspellen op
     const updatedBoardgames = await getBoardgames();
     setBoardgamesList(updatedBoardgames);
+    setSearchedBoardgames(updatedBoardgames); // Update de lijst van gezocht bordspellen na toevoeging
   };
 
   const handleDeleteBoardgame = async (boardgameId) => {
@@ -37,6 +40,7 @@ export default function App() {
     // Haal de bijgewerkte lijst van bordspellen op
     const updatedBoardgames = await getBoardgames();
     setBoardgamesList(updatedBoardgames);
+    setSearchedBoardgames(updatedBoardgames); // Update de lijst van gezocht bordspellen na verwijdering
   };
 
   return (
@@ -44,8 +48,12 @@ export default function App() {
       <div>
         {user ? (
           <div>
-            <SortBoardgames
+            <SearchBoardgames
               boardgamesList={boardgamesList}
+              setSearchedBoardgames={setSearchedBoardgames}
+            />
+            <SortBoardgames
+              boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
               setSortedBoardgamesList={setSortedBoardgamesList}
             />
             <BoardgameList
