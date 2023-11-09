@@ -6,11 +6,13 @@ import BoardgameList from "./components/BoardgameList";
 import NewBoardgameForm from "./components/NewBoardgameForm";
 import Auth from "./components/Auth";
 import SortBoardgames from "./components/SortBoardgames";
+import Logout from "./components/Logout";
 
 export default function App() {
   const [boardgamesList, setBoardgamesList] = useState([]);
   const [sortedBoardgamesList, setSortedBoardgamesList] = useState([]);
   const [searchedBoardgames, setSearchedBoardgames] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Haal de bordspellen op wanneer de component wordt geladen
@@ -39,15 +41,26 @@ export default function App() {
 
   return (
     <div className="App">
+      <div>
+        {user ? (
+          <div>
+            <SortBoardgames
+              boardgamesList={boardgamesList}
+              setSortedBoardgamesList={setSortedBoardgamesList}
+            />
+            <BoardgameList
+              boardgames={sortedBoardgamesList}
+              onDeleteBoardgame={handleDeleteBoardgame}
+            />
+            <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
+            <Logout />
+          </div>
+        ) : (
+          <Auth user={user} setUser={setUser} />
+        )}
+      </div>
+
       {/* <Header/> */}
-      <SortBoardgames boardgamesList={boardgamesList} setSortedBoardgamesList={setSortedBoardgamesList}/>
-      <BoardgameList
-        boardgames={sortedBoardgamesList}
-        onDeleteBoardgame={handleDeleteBoardgame}
-      />
-      <Auth />
-      <h1>Boardgames List</h1>
-      <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
     </div>
   );
 }
