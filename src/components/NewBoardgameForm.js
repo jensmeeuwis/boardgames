@@ -67,7 +67,7 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
   }
 
   return (
-    <div>
+    <div className="text-black">
       <input
         placeholder="Name"
         value={newBoardgameName}
@@ -114,6 +114,7 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
       <input
         type="file"
         onChange={(e) => setSelectedImage(e.target.files[0])}
+        className="text-white"
       />
       <input
         placeholder="Rating"

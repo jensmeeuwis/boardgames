@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
 import "./App.css";
 import { getBoardgames, addBoardgame, deleteBoardgame } from "./api/boardgames";
 import BoardgameList from "./components/BoardgameList";
@@ -44,9 +43,54 @@ export default function App() {
   };
 
   return (
-    <div className="App">
-      <div>
-        {user ? (
+    <div className="flex min-h-screen h-full text-white">
+      {/* optie balk */}
+      <div className="w-1/5 bg-[#5E518C]">
+        {/* Website naam */}
+        <div className="h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
+          Boardgames
+        </div>
+        {/* Opties */}
+        <div>
+          <div>Location</div>
+          <div>Location</div>
+          <div>Location</div>
+          <div>Location</div>
+          <div>Location</div>
+          <div>Location</div>
+        </div>
+      </div>
+
+      {/* Bordspellen balk */}
+      <div className="w-4/5 ">
+        {/* Zoekbalk */}
+        <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
+          <SearchBoardgames
+            boardgamesList={boardgamesList}
+            setSearchedBoardgames={setSearchedBoardgames}
+          />
+
+          <SortBoardgames
+            boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
+            setSortedBoardgamesList={setSortedBoardgamesList}
+          />
+        </div>
+
+        {/* bordspellen lijst */}
+        <div className="bg-[#1E203C] h-full">
+          <BoardgameList
+            boardgames={sortedBoardgamesList}
+            onDeleteBoardgame={handleDeleteBoardgame}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+//<div>
+{
+  /* {user ? (
           <div>
             <SearchBoardgames
               boardgamesList={boardgamesList}
@@ -65,10 +109,6 @@ export default function App() {
           </div>
         ) : (
           <Auth user={user} setUser={setUser} />
-        )}
-      </div>
-
-      {/* <Header/> */}
-    </div>
-  );
+        )} */
 }
+//</div>
