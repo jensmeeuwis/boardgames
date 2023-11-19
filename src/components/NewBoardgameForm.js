@@ -7,7 +7,8 @@ import { storage } from "../config/firebase";
 export default function NewBoardgameForm({ onSubmitBoardgame }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
   const [newBoardgameLocation, setNewBoardgameLocation] = useState("");
-  const [newBoardgamePlayers, setNewBoardgamePlayers] = useState("");
+  const [newBoardgameMinPlayers, setNewBoardgameMinPlayers] = useState(0);
+  const [newBoardgameMaxPlayers, setNewBoardgameMaxPlayers] = useState(0);
   const [newBoardgameGamemode, setNewBoardgameGamemode] = useState("");
   const [newBoardgameDuration, setNewBoardgameDuration] = useState("");
   const [isNewBoardgameLuck, setNewBoardgameLuck] = useState(false);
@@ -35,7 +36,8 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
     onSubmitBoardgame({
       name: newBoardgameName,
       location: newBoardgameLocation,
-      players: newBoardgamePlayers,
+      minPlayers: newBoardgameMinPlayers,
+      maxPlayers: newBoardgameMaxPlayers,
       gamemode: newBoardgameGamemode,
       duration: newBoardgameDuration,
       category: {
@@ -50,7 +52,8 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
     // Reset form fields
     setNewBoardgameName("");
     setNewBoardgameLocation("");
-    setNewBoardgamePlayers("");
+    setNewBoardgameMinPlayers(0);
+    setNewBoardgameMaxPlayers(0);
     setNewBoardgameGamemode("");
     setNewBoardgameDuration("");
     setNewBoardgameLuck(false);
@@ -79,9 +82,14 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
         onChange={(e) => setNewBoardgameLocation(e.target.value)}
       />
       <input
-        placeholder="Players"
-        value={newBoardgamePlayers}
-        onChange={(e) => setNewBoardgamePlayers(e.target.value)}
+        placeholder="Min Players"
+        value={newBoardgameMinPlayers}
+        onChange={(e) => setNewBoardgameMinPlayers(e.target.value)}
+      />
+      <input
+        placeholder="Max Players"
+        value={newBoardgameMaxPlayers}
+        onChange={(e) => setNewBoardgameMaxPlayers(e.target.value)}
       />
       <input
         placeholder="Gamemode"

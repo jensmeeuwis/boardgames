@@ -45,13 +45,13 @@ export default function App() {
   return (
     <div className="flex min-h-screen h-full text-white">
       {/* optie balk */}
-      <div className="w-1/5 bg-[#5E518C]">
+      <div className="w-1/5 fixed">
         {/* Website naam */}
-        <div className="h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
+        <div className=" w-full bg-[#2C2F44] h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
           Boardgames
         </div>
         {/* Opties */}
-        <div>
+        <div className=" w-full bg-gradient-to-b from-[#2C2F44] to-[#355EA9] h-screen">
           <div>Location</div>
           <div>Location</div>
           <div>Location</div>
@@ -60,24 +60,21 @@ export default function App() {
           <div>Location</div>
         </div>
       </div>
-
       {/* Bordspellen balk */}
-      <div className="w-4/5 ">
+      <div className="w-4/5 translate-x-1/4">
         {/* Zoekbalk */}
         <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
           <SearchBoardgames
             boardgamesList={boardgamesList}
             setSearchedBoardgames={setSearchedBoardgames}
           />
-
           <SortBoardgames
             boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
             setSortedBoardgamesList={setSortedBoardgamesList}
           />
         </div>
-
         {/* bordspellen lijst */}
-        <div className="bg-[#1E203C] h-full">
+        <div className="bg-[#1E203C] h-full p-8">
           <BoardgameList
             boardgames={sortedBoardgamesList}
             onDeleteBoardgame={handleDeleteBoardgame}
@@ -85,8 +82,7 @@ export default function App() {
         </div>
       </div>
     </div>
-  );
-}
+)}
 
 //<div>
 {
