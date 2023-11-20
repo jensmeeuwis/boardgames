@@ -1,6 +1,10 @@
 import React from "react";
 // import { Rating } from "@material-tailwind/react";
 import Rating from "@mui/material/Rating";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { HiOutlineUsers } from "react-icons/hi2";
+import { BsHouse } from "react-icons/bs";
+import { IoMdStopwatch } from "react-icons/io";
 
 export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
   return (
@@ -21,15 +25,7 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
           )}
           <div className="p-4">
             <h1 className="text-xl font-semibold mb-2">{boardgame.name}</h1>
-            <p className="text-gray-300 mb-2">Location: {boardgame.location}</p>
-            <p className="text-gray-300 mb-2">
-              Players:{" "}
-              {boardgame.minPlayers === boardgame.maxPlayers
-                ? boardgame.minPlayers
-                : `${boardgame.minPlayers}-${boardgame.maxPlayers}`}
-            </p>
-            <p className="text-gray-300 mb-2">Gamemode: {boardgame.gamemode}</p>
-            <p className="text-gray-300 mb-2">Duration: {boardgame.duration}</p>
+           
             <ul className="flex space-x-2 mb-4">
               {Object.entries(boardgame.category).map(
                 ([category, value]) =>
@@ -43,15 +39,41 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
                   )
               )}
             </ul>
-            <div className="flex items-center mb-2">
-              <Rating className="" name="read-only" value={boardgame.rating} readOnly />
+
+
+            <div className="grid grid-cols-2">
+              <p className="text-gray-300 mb-2 flex">
+                <HiOutlineUsers className="w-6 h-6" />{" "}
+                <div className="ml-2">
+                  {boardgame.minPlayers === boardgame.maxPlayers
+                    ? boardgame.minPlayers
+                    : `${boardgame.minPlayers}-${boardgame.maxPlayers}`}
+                </div>
+              </p>
+              <p className="text-gray-300 mb-2 flex">
+                <BsHouse className="w-6 h-6" />
+                <div className="ml-2">{boardgame.location}</div>
+              </p>
+
+              <p className="text-gray-300 mb-2 flex">
+                <IoGameControllerOutline className="w-6 h-6" />
+                <div className="ml-2">{boardgame.gamemode}</div>
+              </p>
+              <p className="text-gray-300 mb-2 flex">
+                <IoMdStopwatch className="w-6 h-6" />
+                <div className="ml-2">{boardgame.duration}</div>
+              </p>
             </div>
-            <button
+
+
+
+            
+            {/* <button
               className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
               onClick={() => onDeleteBoardgame(boardgame.id)}
             >
               Delete
-            </button>
+            </button> */}
           </div>
         </div>
       ))}
