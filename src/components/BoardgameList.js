@@ -8,7 +8,7 @@ import { IoMdStopwatch } from "react-icons/io";
 
 export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
       {boardgames.map((boardgame) => (
         <div
           key={boardgame.id}
@@ -42,27 +42,27 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
 
 
             <div className="grid grid-cols-2">
-              <p className="text-gray-300 mb-2 flex">
+              <div className="text-gray-300 mb-2 flex">
                 <HiOutlineUsers className="w-6 h-6" />{" "}
-                <div className="ml-2">
+                <p className="ml-2">
                   {boardgame.minPlayers === boardgame.maxPlayers
                     ? boardgame.minPlayers
                     : `${boardgame.minPlayers}-${boardgame.maxPlayers}`}
-                </div>
-              </p>
-              <p className="text-gray-300 mb-2 flex">
+                </p>
+              </div>
+              <div className="text-gray-300 mb-2 flex">
                 <BsHouse className="w-6 h-6" />
-                <div className="ml-2">{boardgame.location}</div>
-              </p>
+                <p className="ml-2">{boardgame.location}</p>
+              </div>
 
-              <p className="text-gray-300 mb-2 flex">
+              <div className="text-gray-300 mb-2 flex">
                 <IoGameControllerOutline className="w-6 h-6" />
-                <div className="ml-2">{boardgame.gamemode}</div>
-              </p>
-              <p className="text-gray-300 mb-2 flex">
+                <p className="ml-2">{boardgame.gamemode}</p>
+              </div>
+              <div className="text-gray-300 mb-2 flex">
                 <IoMdStopwatch className="w-6 h-6" />
-                <div className="ml-2">{boardgame.duration}</div>
-              </p>
+                <p className="ml-2">{boardgame.duration}</p>
+              </div>
             </div>
 
 

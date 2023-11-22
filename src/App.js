@@ -7,11 +7,13 @@ import Auth from "./components/Auth";
 import SortBoardgames from "./components/SortBoardgames";
 import Logout from "./components/Logout";
 import SearchBoardgames from "./components/SearchBoardgames";
+import FilterBoardgames from "./components/FilterBoardgames";
 
 export default function App() {
   const [boardgamesList, setBoardgamesList] = useState([]);
   const [sortedBoardgamesList, setSortedBoardgamesList] = useState([]);
   const [searchedBoardgames, setSearchedBoardgames] = useState([]);
+  const [filteredBoardgames, setFilteredBoardgames] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -52,12 +54,10 @@ export default function App() {
         </div>
         {/* Opties */}
         <div className=" w-full bg-gradient-to-b from-[#2C2F44] to-[#355EA9] h-screen">
-          <div>Location</div>
-          <div>Location</div>
-          <div>Location</div>
-          <div>Location</div>
-          <div>Location</div>
-          <div>Location</div>
+          <FilterBoardgames
+            boardgamesList={boardgamesList}
+            setFilteredBoardgames={setFilteredBoardgames}
+          />
         </div>
       </div>
       {/* Bordspellen balk */}
@@ -65,7 +65,7 @@ export default function App() {
         {/* Zoekbalk */}
         <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
           <SearchBoardgames
-            boardgamesList={boardgamesList}
+            boardgamesList={filteredBoardgames}
             setSearchedBoardgames={setSearchedBoardgames}
           />
           <SortBoardgames

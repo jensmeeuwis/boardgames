@@ -19,10 +19,10 @@ export default function SearchBoardgames({
 
   return (
     <form className="w-1/2">
-      <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+      <div className="relative">
+        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -30,9 +30,9 @@ export default function SearchBoardgames({
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>
@@ -40,7 +40,7 @@ export default function SearchBoardgames({
         <input
           type="text"
           id="default-search"
-          class="block w-full py-2 ps-10 text-xl border rounded-lg bg-gray-700 border-gray-600 "
+          className="block w-full py-2 ps-10 text-xl border rounded-lg bg-gray-700 border-gray-600 "
           placeholder="Zoek bordspellen op naam..."
           value={searchQuery}
           onChange={handleSearchChange}
