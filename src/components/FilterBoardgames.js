@@ -7,6 +7,7 @@ export default function FilterBoardgames({
   const [players, setPlayers] = useState("");
   const [locationSophia, setLocationSophia] = useState(false);
   const [gamemodePvP, setGamemodePvP] = useState(false);
+  const [gamemodeCooperative, setGamemodeCooperative] = useState(false);
 
   useEffect(() => {
     const filteredBoardgames = boardgamesList.filter((boardgame) => {
@@ -18,14 +19,22 @@ export default function FilterBoardgames({
       const meetsLocationCriteria =
         !locationSophia || boardgame.location === "Sophia";
 
-        const meetsGamemodeCriteria =
+      const meetsGamemodePvpCriteria =
         !gamemodePvP || boardgame.gamemode === "PvP";
 
-      return meetsPlayerCriteria && meetsLocationCriteria && meetsGamemodeCriteria;
+      const meetsGamemodeCooperativeCriteria =
+        !gamemodeCooperative || boardgame.gamemode === "Coöperatief";
+
+      return (
+        meetsPlayerCriteria &&
+        meetsLocationCriteria &&
+        meetsGamemodePvpCriteria &&
+        meetsGamemodeCooperativeCriteria
+      );
     });
 
     setFilteredBoardgames(filteredBoardgames);
-  }, [players, locationSophia, gamemodePvP, boardgamesList, setFilteredBoardgames]);
+  }, [players, locationSophia, gamemodePvP, gamemodeCooperative, boardgamesList, setFilteredBoardgames]);
 
   const handlePlayersChange = (event) => {
     setPlayers(event.target.value);
@@ -35,8 +44,17 @@ export default function FilterBoardgames({
     setLocationSophia(!locationSophia);
   };
 
-  const handleGamemodeChange = () => {
-    setGamemodePvP(!gamemodePvP);
+  const handleGamemodeToggle = (gamemode) => {
+    switch (gamemode) {
+      case "PvP":
+        setGamemodePvP(!gamemodePvP);
+        break;
+      case "Cooperative":
+        setGamemodeCooperative(!gamemodeCooperative);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -71,7 +89,17 @@ export default function FilterBoardgames({
         id="gamemodePvP"
         className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
         checked={gamemodePvP}
-        onChange={handleGamemodeChange}
+        onChange={() => handleGamemodeToggle("PvP")}
+      />
+      <label htmlFor="min-players" className="text-white">
+        Coöperatief:
+      </label>
+      <input
+        type="checkbox"
+        id="gamemodeCooperative"
+        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+        checked={gamemodeCooperative}
+        onChange={() => handleGamemodeToggle("Cooperative")}
       />
     </form>
   );

@@ -1,6 +1,4 @@
 import React from "react";
-// import { Rating } from "@material-tailwind/react";
-import Rating from "@mui/material/Rating";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { BsHouse } from "react-icons/bs";
@@ -15,7 +13,7 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
           className="border-2 border-gray-300 bg-[#8f7bf561] rounded-md overflow-hidden shadow-md hover:shadow-lg transition duration-300"
         >
           {boardgame.imageUrl && (
-            <div className=" aspect-video">
+            <div className=" aspect-square">
               <img
                 src={boardgame.imageUrl}
                 alt={boardgame.name}
@@ -82,7 +80,6 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
 }
 
 // import React from "react";
-// import { Rating } from "@material-tailwind/react";
 
 // export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
 //   return (
@@ -120,9 +117,6 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
 //                   )
 //               )}
 //             </ul>
-//             <div className="flex items-center mb-2">
-//               <Rating className="w-10 text-yellow-500" value={boardgame.rating} readonly />
-//             </div>
 //             <button
 //               className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
 //               onClick={() => onDeleteBoardgame(boardgame.id)}

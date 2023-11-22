@@ -15,7 +15,6 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
   const [isNewBoardgameSkill, setNewBoardgameSkill] = useState(false);
   const [isNewBoardgameStrategy, setNewBoardgameStrategy] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [newBoardgameRating, setNewBoardgameRating] = useState(0);
 
   const handleImageUpload = async () => {
     if (selectedImage) {
@@ -46,7 +45,6 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
         strategy: isNewBoardgameStrategy,
       },
       imageUrl: imageUrl,
-      rating: newBoardgameRating,
     });
 
     // Reset form fields
@@ -60,14 +58,7 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
     setNewBoardgameSkill(false);
     setNewBoardgameStrategy(false);
     setSelectedImage(null);
-    setNewBoardgameRating(0);
   };
-
-  const handleRatingChange = (e) => {
-    const inputValue = parseInt(e.target.value, 10);
-    const limitedValue = Math.min(Math.max(inputValue, 0), 5);
-    setNewBoardgameRating(limitedValue);
-  }
 
   return (
     <div className="text-black">
@@ -123,12 +114,6 @@ export default function NewBoardgameForm({ onSubmitBoardgame }) {
         type="file"
         onChange={(e) => setSelectedImage(e.target.files[0])}
         className="text-white"
-      />
-      <input
-        placeholder="Rating"
-        value={newBoardgameRating}
-        type="number"
-        onChange={handleRatingChange}
       />
       <button onClick={handleSubmit}>Submit</button>
     </div>

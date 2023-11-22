@@ -64,6 +64,8 @@ export default function App() {
       <div className="w-4/5 translate-x-1/4">
         {/* Zoekbalk */}
         <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
+        {/* <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} /> */}
+          
           <SearchBoardgames
             boardgamesList={filteredBoardgames}
             setSearchedBoardgames={setSearchedBoardgames}
