@@ -5,6 +5,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 
 const boardgamesCollectionRef = collection(db, "Boardgames");
@@ -32,6 +33,18 @@ export const addBoardgame = async (boardgameData) => {
     console.log("Boardgame added successfully!");
   } catch (error) {
     console.error("Error adding boardgame: ", error);
+  }
+};
+
+export const editBoardgame = async (id) => {
+  const boardgameDocRef = doc(db, "Boardgames", id);
+  try {
+    await updateDoc(boardgameDocRef, {
+      name: "30 Seconds",
+    });
+    console.log("Boardgame updated successfully!");
+  } catch (error) {
+    console.error("Error updating boardgame: ", error);
   }
 };
 
