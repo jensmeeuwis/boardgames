@@ -63,9 +63,7 @@ export default function App() {
       {/* Bordspellen balk */}
       <div className="w-4/5 translate-x-1/4">
         {/* Zoekbalk */}
-        <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
-        {/* <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} /> */}
-          
+        <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">          
           <SearchBoardgames
             boardgamesList={filteredBoardgames}
             setSearchedBoardgames={setSearchedBoardgames}
@@ -77,6 +75,7 @@ export default function App() {
         </div>
         {/* bordspellen lijst */}
         <div className="bg-[#1E203C] h-full p-8">
+        {/* <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} /> */}
           <BoardgameList
             boardgames={sortedBoardgamesList}
             onDeleteBoardgame={handleDeleteBoardgame}

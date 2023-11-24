@@ -5,63 +5,63 @@ export default function FilterBoardgames({
   setFilteredBoardgames,
 }) {
   const [players, setPlayers] = useState("");
-  const [locationSophia, setLocationSophia] = useState(false);
-  const [gamemodePvP, setGamemodePvP] = useState(false);
-  const [gamemodeCooperative, setGamemodeCooperative] = useState(false);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedGameModes, setSelectedGameModes] = useState([]);
 
   useEffect(() => {
     const filteredBoardgames = boardgamesList.filter((boardgame) => {
       const meetsPlayerCriteria =
-        !players ||
+        players === "" ||
         (boardgame.minPlayers <= parseInt(players, 10) &&
           parseInt(players, 10) <= boardgame.maxPlayers);
 
       const meetsLocationCriteria =
-        !locationSophia || boardgame.location === "Sophia";
+        selectedLocations.length === 0 ||
+        selectedLocations.includes(boardgame.location);
 
-      const meetsGamemodePvpCriteria =
-        !gamemodePvP || boardgame.gamemode === "PvP";
-
-      const meetsGamemodeCooperativeCriteria =
-        !gamemodeCooperative || boardgame.gamemode === "Coöperatief";
+      const meetsGamemodeCriteria =
+        selectedGameModes.length === 0 ||
+        selectedGameModes.includes(boardgame.gamemode);
 
       return (
+        meetsGamemodeCriteria &&
         meetsPlayerCriteria &&
-        meetsLocationCriteria &&
-        meetsGamemodePvpCriteria &&
-        meetsGamemodeCooperativeCriteria
+        meetsLocationCriteria
       );
     });
 
     setFilteredBoardgames(filteredBoardgames);
-  }, [players, locationSophia, gamemodePvP, gamemodeCooperative, boardgamesList, setFilteredBoardgames]);
+  }, [
+    players,
+    selectedLocations,
+    selectedGameModes,
+    boardgamesList,
+    setFilteredBoardgames,
+  ]);
 
   const handlePlayersChange = (event) => {
     setPlayers(event.target.value);
   };
 
-  const handleLocationChange = () => {
-    setLocationSophia(!locationSophia);
+  const handleLocationChange = (location) => {
+    const updatedLocations = selectedLocations.includes(location)
+      ? selectedLocations.filter((loc) => loc !== location)
+      : [...selectedLocations, location];
+
+    setSelectedLocations(updatedLocations);
   };
 
-  const handleGamemodeToggle = (gamemode) => {
-    switch (gamemode) {
-      case "PvP":
-        setGamemodePvP(!gamemodePvP);
-        break;
-      case "Cooperative":
-        setGamemodeCooperative(!gamemodeCooperative);
-        break;
-      default:
-        break;
-    }
+  const handleGamemodeChange = (gamemode) => {
+    const updatedGameModes = selectedGameModes.includes(gamemode)
+      ? selectedGameModes.filter((mode) => mode !== gamemode)
+      : [...selectedGameModes, gamemode];
+
+    setSelectedGameModes(updatedGameModes);
   };
 
   return (
     <form className="mb-4">
-      <label htmlFor="min-players" className="text-white">
-        Spelers:
-      </label>
+      <label className="">Spelers:</label>
       <input
         type="number"
         id="min-players"
@@ -70,37 +70,55 @@ export default function FilterBoardgames({
         value={players}
         onChange={handlePlayersChange}
       />
-      <label htmlFor="min-players" className="text-white">
-        Sophia:
-      </label>
-      <input
-        type="checkbox"
-        id="locationSophia"
-        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-        checked={locationSophia}
-        onChange={handleLocationChange}
-      />
 
-      <label htmlFor="min-players" className="text-white">
-        PvP:
-      </label>
-      <input
-        type="checkbox"
-        id="gamemodePvP"
-        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-        checked={gamemodePvP}
-        onChange={() => handleGamemodeToggle("PvP")}
-      />
-      <label htmlFor="min-players" className="text-white">
-        Coöperatief:
-      </label>
-      <input
-        type="checkbox"
-        id="gamemodeCooperative"
-        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-        checked={gamemodeCooperative}
-        onChange={() => handleGamemodeToggle("Cooperative")}
-      />
+      <label className="">Locaties:</label>
+      <div>
+        <input
+          type="checkbox"
+          id="locationSophia"
+          checked={selectedLocations.includes("Sophia")}
+          onChange={() => handleLocationChange("Sophia")}
+        />
+        <label className="">Sophia</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          id="locationJens"
+          checked={selectedLocations.includes("Jens")}
+          onChange={() => handleLocationChange("Jens")}
+        />
+        <label className="">Jens</label>
+      </div>
+
+      <label className="">Gamemodes:</label>
+      <div>
+        <input
+          type="checkbox"
+          id="gamemodePvP"
+          checked={selectedGameModes.includes("PvP")}
+          onChange={() => handleGamemodeChange("PvP")}
+        />
+        <label className="">PvP</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          id="gamemodeCooperative"
+          checked={selectedGameModes.includes("Coöperatief")}
+          onChange={() => handleGamemodeChange("Coöperatief")}
+        />
+        <label className="">Coöperatief</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          id="gamemodeTeams"
+          checked={selectedGameModes.includes("Teams")}
+          onChange={() => handleGamemodeChange("Teams")}
+        />
+        <label className="">Teams</label>
+      </div>
     </form>
   );
 }
