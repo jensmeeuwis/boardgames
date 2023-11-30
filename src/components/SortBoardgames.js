@@ -33,7 +33,7 @@ export default function SortBoardgames({
       {/* <button onClick={() => setSortOrder("asc")}>Sorteer oplopend</button>
       <button onClick={() => setSortOrder("desc")}>Sorteer aflopend</button> */}
       <select
-        className="block w-full py-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
+        className="block w-full p-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
         value={sortOrder}
         onChange={(e) => {
             setSortOrder(e.target.value);

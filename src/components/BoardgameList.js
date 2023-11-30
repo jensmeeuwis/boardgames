@@ -3,6 +3,7 @@ import { IoGameControllerOutline } from "react-icons/io5";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { BsHouse } from "react-icons/bs";
 import { IoMdStopwatch } from "react-icons/io";
+import BoardgameModal from "./BoardgameModal";
 
 export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
   const [isResized, setIsResized] = useState(false);
@@ -18,46 +19,15 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
   return (
     <div>
       {isResized && (
-        <div className="flex justify-center items-center h-screen">
-          <div className="w-1/3">
-            <div
-              key={resizedBoardgame.id}
-              className=" border-2 border-gray-300 bg-[#8f7bf561] rounded-md overflow-hidden shadow-md hover:shadow-lg transition duration-300"
-              onClick={resizeBoardgame(resizedBoardgame.id)}
-            >
-              {resizedBoardgame.imageUrl && (
-                <div className=" aspect-square">
-                  <img
-                    src={resizedBoardgame.imageUrl}
-                    alt={resizedBoardgame.name}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <h1 className="text-xl font-semibold mb-2">
-                  {resizedBoardgame.name}
-                </h1>
-
-                <p>Heeeyy</p>
-
-               
-
-                {/* <button
-              className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
-              onClick={() => onDeleteBoardgame(boardgame.id)}
-            >
-              Delete
-            </button> */}
-              </div>
-            </div>
-          </div>
-        </div>
+        <BoardgameModal
+          resizeBoardgame={resizeBoardgame}
+          resizedBoardgame={resizedBoardgame}
+        />
       )}
 
       <div
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ${
-          isResized ? "blur-md" : ""
+          isResized ? "blur-lg" : ""
         }`}
       >
         {boardgames.map((boardgame) => (
@@ -86,14 +56,14 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
                         key={category}
                         className="text-xs bg-blue-200 text-blue-800 py-1 px-2 rounded-full"
                       >
-                        {category}
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
                       </li>
                     )
                 )}
               </ul>
 
-              <div className="grid grid-cols-2">
-                <div className="text-gray-300 mb-2 flex">
+              <div className="grid grid-cols-2 text-gray-300">
+                <div className="mb-2 flex">
                   <HiOutlineUsers className="w-6 h-6" />{" "}
                   <p className="ml-2">
                     {boardgame.minPlayers === boardgame.maxPlayers
@@ -101,16 +71,16 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
                       : `${boardgame.minPlayers}-${boardgame.maxPlayers}`}
                   </p>
                 </div>
-                <div className="text-gray-300 mb-2 flex">
+                <div className="mb-2 flex">
                   <BsHouse className="w-6 h-6" />
                   <p className="ml-2">{boardgame.location}</p>
                 </div>
 
-                <div className="text-gray-300 mb-2 flex">
+                <div className="mb-2 flex">
                   <IoGameControllerOutline className="w-6 h-6" />
                   <p className="ml-2">{boardgame.gamemode}</p>
                 </div>
-                <div className="text-gray-300 mb-2 flex">
+                <div className="mb-2 flex">
                   <IoMdStopwatch className="w-6 h-6" />
                   <p className="ml-2">{boardgame.duration}</p>
                 </div>
