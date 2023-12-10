@@ -17,7 +17,7 @@ export default function FilterBoardgames({
           parseInt(players, 10) <= boardgame.maxPlayers);
 
       const meetsDurationCriteria =
-        duration === "" || 
+        duration === "" ||
         (parseInt(duration, 10) - 10 <= boardgame.duration &&
           parseInt(duration, 10) + 10 >= boardgame.duration);
 
@@ -30,7 +30,10 @@ export default function FilterBoardgames({
         selectedGameModes.includes(boardgame.gamemode);
 
       return (
-        meetsGamemodeCriteria && meetsPlayerCriteria && meetsLocationCriteria && meetsDurationCriteria
+        meetsGamemodeCriteria &&
+        meetsPlayerCriteria &&
+        meetsLocationCriteria &&
+        meetsDurationCriteria
       );
     });
 
@@ -69,75 +72,83 @@ export default function FilterBoardgames({
   };
 
   return (
-    <form className="mb-4">
-      <label className="">Spelers:</label>
-      <input
-        type="number"
-        id="players"
-        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-        placeholder="Enter players..."
-        value={players}
-        onChange={handlePlayersChange}
-      />
-
-      <label className="">Locaties:</label>
-      <div>
+    <div className="mx-5 pt-5">
+      <div className="mb-5">
+        <label className="">Spelers:</label>
         <input
-          type="checkbox"
-          id="locationSophia"
-          checked={selectedLocations.includes("Sophia")}
-          onChange={() => handleLocationChange("Sophia")}
+          type="number"
+          id="players"
+          className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+          placeholder="Enter players..."
+          value={players}
+          onChange={handlePlayersChange}
         />
-        <label className="">Sophia</label>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="locationJens"
-          checked={selectedLocations.includes("Jens")}
-          onChange={() => handleLocationChange("Jens")}
-        />
-        <label className="">Jens</label>
       </div>
 
-      <label className="">Gamemodes:</label>
-      <div>
+      <div className="mb-5">
+        <label className="">Duur:</label>
         <input
-          type="checkbox"
-          id="gamemodePvP"
-          checked={selectedGameModes.includes("PvP")}
-          onChange={() => handleGamemodeChange("PvP")}
+          type="number"
+          id="duration"
+          className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+          placeholder="Tijd ofzo"
+          value={duration}
+          onChange={handleDurationChange}
         />
-        <label className="">PvP</label>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="gamemodeCooperative"
-          checked={selectedGameModes.includes("Coöperatief")}
-          onChange={() => handleGamemodeChange("Coöperatief")}
-        />
-        <label className="">Coöperatief</label>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="gamemodeTeams"
-          checked={selectedGameModes.includes("Teams")}
-          onChange={() => handleGamemodeChange("Teams")}
-        />
-        <label className="">Teams</label>
       </div>
 
-      <label className="">Duur:</label>
-      <input
-        type="number"
-        id="duration"
-        className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-        placeholder="Tijd ofzo"
-        value={duration}
-        onChange={handleDurationChange}
-      />
-    </form>
+      <div className="mb-5">
+        <label className=" ">Locaties:</label>
+        <div>
+          <input
+            type="checkbox"
+            id="locationSophia"
+            checked={selectedLocations.includes("Sophia")}
+            onChange={() => handleLocationChange("Sophia")}
+          />
+          <label className="">Sophia</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="locationJens"
+            checked={selectedLocations.includes("Jens")}
+            onChange={() => handleLocationChange("Jens")}
+          />
+          <label className="">Jens</label>
+        </div>
+      </div>
+
+      <div className="mb-5">
+        <label className="">Gamemodes:</label>
+        <div>
+          <input
+            type="checkbox"
+            id="gamemodePvP"
+            checked={selectedGameModes.includes("PvP")}
+            onChange={() => handleGamemodeChange("PvP")}
+          />
+          <label className="">PvP</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="gamemodeCooperative"
+            checked={selectedGameModes.includes("Coöperatief")}
+            onChange={() => handleGamemodeChange("Coöperatief")}
+          />
+          <label className="">Coöperatief</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="gamemodeTeams"
+            checked={selectedGameModes.includes("Teams")}
+            onChange={() => handleGamemodeChange("Teams")}
+          />
+          <label className="">Teams</label>
+        </div>
+      </div>
+    </div>
   );
 }

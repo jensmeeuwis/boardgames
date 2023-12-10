@@ -4,8 +4,10 @@ import { HiOutlineUsers } from "react-icons/hi2";
 import { BsHouse } from "react-icons/bs";
 import { IoMdStopwatch } from "react-icons/io";
 import BoardgameModal from "./BoardgameModal";
+import { auth } from "../config/firebase";
 
-export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
+
+export default function BoardgameList({ boardgames, onDeleteBoardgame, adminUsers }) {
   const [isResized, setIsResized] = useState(false);
   const [resizedBoardgame, setResizedBoardgame] = useState(null);
 
@@ -13,7 +15,6 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
     const boardgame = boardgames.find((boardgame) => boardgame.id === id);
     setResizedBoardgame(boardgame);
     setIsResized(!isResized);
-    console.log(boardgame);
   };
 
   return (
@@ -25,11 +26,7 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
         />
       )}
 
-      <div
-        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ${
-          isResized ? "blur-lg" : ""
-        }`}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {boardgames.map((boardgame) => (
           <div
             key={boardgame.id}
@@ -64,7 +61,7 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
 
               <div className="grid grid-cols-2 text-gray-300">
                 <div className="mb-2 flex">
-                  <HiOutlineUsers className="w-6 h-6" />{" "}
+                  <HiOutlineUsers className="w-6 h-6" />
                   <p className="ml-2">
                     {boardgame.minPlayers === boardgame.maxPlayers
                       ? boardgame.minPlayers
@@ -76,22 +73,24 @@ export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
                   <p className="ml-2">{boardgame.location}</p>
                 </div>
 
-                <div className="mb-2 flex">
-                  <IoGameControllerOutline className="w-6 h-6" />
-                  <p className="ml-2">{boardgame.gamemode}</p>
-                </div>
+                
                 <div className="mb-2 flex">
                   <IoMdStopwatch className="w-6 h-6" />
                   <p className="ml-2">{boardgame.duration}</p>
                 </div>
+                <div className="mb-2 flex">
+                  <IoGameControllerOutline className="w-6 h-6" />
+                  <p className="ml-2">{boardgame.gamemode}</p>
+                </div>
               </div>
-
-              {/* <button
-              className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
-              onClick={() => onDeleteBoardgame(boardgame.id)}
-            >
-              Delete
-            </button> */}
+              {adminUsers.includes(auth.currentUser.email) && (
+                <button
+                  className="w-full text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+                  onClick={() => onDeleteBoardgame(boardgame.id)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}

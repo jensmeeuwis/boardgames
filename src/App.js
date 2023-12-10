@@ -55,10 +55,18 @@ export default function App() {
     <div>
       {user ? (
         <div className="flex min-h-screen h-full text-white">
+          {showForm && (
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
+              <NewBoardgameForm
+                handleAddBoardgame={handleAddBoardgame}
+                toggleForm={toggleForm}
+              />
+            </div>
+          )}
           {/* optie balk */}
           <div className="w-1/5 fixed">
             {/* Website naam */}
-            <div className=" w-full bg-[#2C2F44] h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
+            <div className="w-full bg-[#2C2F44] h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
               Boardgames
             </div>
             {/* Opties */}
@@ -70,7 +78,7 @@ export default function App() {
             </div>
           </div>
           {/* Bordspellen balk */}
-          <div className="w-4/5 translate-x-1/4">
+          <div className="w-4/5 ml-auto ">
             {/* Zoekbalk */}
             <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
               <SearchBoardgames
@@ -85,16 +93,12 @@ export default function App() {
 
               {adminUsers.includes(auth.currentUser.email) && (
                 <button
-                  className="ml-2 px-4 py-2 bg-gray-700 text-white rounded-md"
+                  className="block p-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
                   onClick={toggleForm}
                 >
-                  {showForm
-                    ? "Verberg formulier"
-                    : "Voeg nieuwe boardgame toe"}
+                  Nieuw bordspel
                 </button>
               )}
-
-
             </div>
             {/* bordspellen lijst */}
             <div className="bg-[#1E203C] h-full p-8">
@@ -102,6 +106,7 @@ export default function App() {
               <BoardgameList
                 boardgames={sortedBoardgamesList}
                 onDeleteBoardgame={handleDeleteBoardgame}
+                adminUsers={adminUsers}
               />
             </div>
           </div>
@@ -112,28 +117,3 @@ export default function App() {
     </div>
   );
 }
-
-//<div>
-{
-  /* {user ? (
-          <div>
-            <SearchBoardgames
-              boardgamesList={boardgamesList}
-              setSearchedBoardgames={setSearchedBoardgames}
-            />
-            <SortBoardgames
-              boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
-              setSortedBoardgamesList={setSortedBoardgamesList}
-            />
-            <BoardgameList
-              boardgames={sortedBoardgamesList}
-              onDeleteBoardgame={handleDeleteBoardgame}
-            />
-            <NewBoardgameForm onSubmitBoardgame={handleAddBoardgame} />
-            <Logout />
-          </div>
-        ) : (
-          <Auth user={user} setUser={setUser} />
-        )} */
-}
-//</div>

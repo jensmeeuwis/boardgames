@@ -6,7 +6,7 @@ const BoardgameModal = ({
 }) => {
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex bg-black bg-opacity-50 items-center justify-center z-50">
       <div className="w-2/3">
         <div
           key={resizedBoardgame.id}
@@ -27,17 +27,7 @@ const BoardgameModal = ({
               {resizedBoardgame.name}
             </h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a
-              orci eget enim condimentum convallis sit amet ut mauris. Morbi a
-              tincidunt urna. Phasellus eros eros, convallis non lectus ac,
-              fringilla tempus ante. Nunc vestibulum ex sit amet sem sodales, ut
-              iaculis leo laoreet. Pellentesque ut faucibus nisl, vel feugiat
-              ligula. Mauris vitae quam gravida, venenatis eros quis, consequat
-              urna. Pellentesque ullamcorper leo sit amet lacus molestie, dictum
-              aliquam quam posuere. Integer non pulvinar ex. Nam et purus a
-              turpis luctus lobortis. Sed pharetra odio vel ex porta, ut commodo
-              eros volutpat. Proin non nisl in dolor dignissim posuere sed id
-              risus.
+              {resizedBoardgame.description}
             </p>
           </div>
         </div>
