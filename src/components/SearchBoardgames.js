@@ -18,7 +18,7 @@ export default function SearchBoardgames({
   };
 
   return (
-    <form className="w-1/2">
+    <form className="w-2/3">
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg

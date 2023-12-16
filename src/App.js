@@ -8,6 +8,7 @@ import SortBoardgames from "./components/SortBoardgames";
 import Logout from "./components/Logout";
 import SearchBoardgames from "./components/SearchBoardgames";
 import FilterBoardgames from "./components/FilterBoardgames";
+import { IoAdd } from "react-icons/io5";
 import { auth } from "./config/firebase";
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
   const [filteredBoardgames, setFilteredBoardgames] = useState([]);
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const adminUsers = ["hoi@gmail.com", "test@gmail.com"];
+  const adminUsers = ["test@gmail.com", "hoi@gmail.com"];
 
   useEffect(() => {
     // Haal de bordspellen op wanneer de component wordt geladen
@@ -80,25 +81,37 @@ export default function App() {
           {/* Bordspellen balk */}
           <div className="w-4/5 ml-auto ">
             {/* Zoekbalk */}
-            <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex justify-center items-center">
-              <SearchBoardgames
-                boardgamesList={filteredBoardgames}
-                setSearchedBoardgames={setSearchedBoardgames}
-              />
-              <SortBoardgames
-                boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
-                setSortedBoardgamesList={setSortedBoardgamesList}
-              />
-              <Logout user={user} setUser={setUser} />
+            <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex items-center">
+              <div className="w-1/6"></div>
+              <div className=" justify-center flex w-4/6 ml-5">
+                <SearchBoardgames
+                  boardgamesList={filteredBoardgames}
+                  setSearchedBoardgames={setSearchedBoardgames}
+                />
+              </div>
 
-              {adminUsers.includes(auth.currentUser.email) && (
-                <button
-                  className="block p-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
-                  onClick={toggleForm}
-                >
-                  Nieuw bordspel
-                </button>
-              )}
+              <div className="flex items-center justify-end w-1/6">
+                <div className="mr-5">
+                  <SortBoardgames
+                    boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
+                    setSortedBoardgamesList={setSortedBoardgamesList}
+                  />
+                </div>
+                {adminUsers.includes(auth.currentUser.email) && (
+                  <div className="mr-5">
+                    <IoAdd
+                      className="w-8 h-8 hover:cursor-pointer"
+                      onClick={toggleForm}
+                    >
+                      Nieuw bordspel
+                    </IoAdd>
+                  </div>
+                )}
+
+                <div className="mr-5">
+                  <Logout user={user} setUser={setUser} />
+                </div>
+              </div>
             </div>
             {/* bordspellen lijst */}
             <div className="bg-[#1E203C] h-full p-8">

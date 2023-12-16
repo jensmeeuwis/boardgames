@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
+import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Logout({ setUser }) {
   const handleLogout = async () => {
@@ -24,9 +25,12 @@ export default function Logout({ setUser }) {
 
   return (
     <div>
-      <button className="block w-full p-2 text-lg border rounded-lg bg-gray-700 border-gray-600" onClick={handleLogout}>
+      <IoLogOutOutline
+        className="w-8 h-8 hover:cursor-pointer"
+        onClick={handleLogout}
+      >
         Logout
-      </button>
+      </IoLogOutOutline>
     </div>
   );
 }
