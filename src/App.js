@@ -18,7 +18,7 @@ export default function App() {
   const [filteredBoardgames, setFilteredBoardgames] = useState([]);
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const adminUsers = ["test@gmail.com", "hoi@gmail.com"];
+  const adminUsers = ["test@gmail.com"];
 
   useEffect(() => {
     // Haal de bordspellen op wanneer de component wordt geladen
