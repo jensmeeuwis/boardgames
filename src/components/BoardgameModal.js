@@ -10,7 +10,7 @@ const BoardgameModal = ({
       <div className="w-2/3">
         <div
           key={resizedBoardgame.id}
-          className=" flex border-2 border-gray-300 rounded-md bg-[#1E203C]"
+          className=" flex rounded-md bg-[#1E203C] shadow-lg shadow-gray-950 border-2 border-gray-600"
           onClick={resizeBoardgame(resizedBoardgame.id)}
         >
           {resizedBoardgame.imageUrl && (
