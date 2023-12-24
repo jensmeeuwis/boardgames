@@ -46,15 +46,6 @@ export default function BoardgameList({
               layoutId={boardgame.id}
               onClick={() => setSelectedId(boardgame.id)}
             >
-              <AnimatePresence>
-                {selectedId && (
-                  <motion.div layoutId={selectedId}>
-                    <motion.h5>{boardgame.title}</motion.h5>
-                    <motion.h2>{boardgame.description}</motion.h2>
-                    <motion.button onClick={() => setSelectedId(null)} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
               <div
                 key={boardgame.id}
                 className=" rounded-md overflow-hidden shadow-gray-950 shadow-lg duration-300 boardgame-card"
