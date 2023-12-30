@@ -11,8 +11,6 @@ export default function BoardgameList({
   boardgames,
   onDeleteBoardgame,
   adminUsers,
-  loadedCards,
-  setLoadedCards,
 }) {
   const [isResized, setIsResized] = useState(false);
   const [resizedBoardgame, setResizedBoardgame] = useState(null);
@@ -26,12 +24,22 @@ export default function BoardgameList({
 
   return (
     <div>
-      {isResized && (
-        <BoardgameModal
-          resizeBoardgame={resizeBoardgame}
-          resizedBoardgame={resizedBoardgame}
-        />
-      )}
+      <AnimatePresence initial={false}>
+        {isResized && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <BoardgameModal
+              resizeBoardgame={resizeBoardgame}
+              resizedBoardgame={resizedBoardgame}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
         <AnimatePresence initial={false}>
@@ -96,7 +104,11 @@ export default function BoardgameList({
 
                     <div className="mb-2 flex">
                       <IoMdStopwatch className="w-6 h-6" />
-                      <p className="ml-2">{boardgame.duration}</p>
+                      <p className="ml-2">
+                        {boardgame.minDuration === boardgame.maxDuration
+                          ? boardgame.minDuration
+                          : `${boardgame.minDuration}-${boardgame.maxDuration}`}
+                      </p>
                     </div>
                     <div className="mb-2 flex">
                       <IoGameControllerOutline className="w-6 h-6" />
@@ -120,54 +132,3 @@ export default function BoardgameList({
     </div>
   );
 }
-
-// import React from "react";
-
-// export default function BoardgameList({ boardgames, onDeleteBoardgame }) {
-//   return (
-//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//       {boardgames.map((boardgame) => (
-//         <div
-//           key={boardgame.id}
-//           className="border-2 border-gray-300 rounded-md overflow-hidden shadow-md hover:shadow-lg transition duration-300"
-//         >
-//           {boardgame.imageUrl && (
-//             <div className=" aspect-square">
-//               <img
-//                 src={boardgame.imageUrl}
-//                 alt={boardgame.name}
-//                 className="object-cover w-full h-full"
-//               />
-//             </div>
-//           )}
-//           <div className="p-4">
-//             <h1 className="text-xl font-semibold mb-2">{boardgame.name}</h1>
-//             <p className="text-gray-600 mb-2">Location: {boardgame.location}</p>
-//             <p className="text-gray-600 mb-2">Players: {boardgame.players}</p>
-//             <p className="text-gray-600 mb-2">Gamemode: {boardgame.gamemode}</p>
-//             <p className="text-gray-600 mb-2">Duration: {boardgame.duration}</p>
-//             <ul className="flex space-x-2 mb-4">
-//               {Object.entries(boardgame.category).map(
-//                 ([category, value]) =>
-//                   value && (
-//                     <li
-//                       key={category}
-//                       className="text-xs bg-blue-200 text-blue-800 py-1 px-2 rounded-full"
-//                     >
-//                       {category}
-//                     </li>
-//                   )
-//               )}
-//             </ul>
-//             <button
-//               className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
-//               onClick={() => onDeleteBoardgame(boardgame.id)}
-//             >
-//               Delete
-//             </button>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }

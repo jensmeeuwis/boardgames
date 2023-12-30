@@ -81,7 +81,7 @@ export default function App() {
           {/* Bordspellen balk */}
           <div className="w-4/5 ml-auto ">
             {/* Zoekbalk */}
-            <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex items-center fixed w-4/5 z-50">
+            <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex items-center fixed w-4/5 z-40">
               <div className="w-1/6"></div>
               <div className=" justify-center flex w-4/6 ml-5">
                 <SearchBoardgames

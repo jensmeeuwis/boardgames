@@ -18,8 +18,10 @@ export default function FilterBoardgames({
 
       const meetsDurationCriteria =
         duration === "" ||
-        (parseInt(duration, 10) - 10 <= boardgame.duration &&
-          parseInt(duration, 10) + 10 >= boardgame.duration);
+        (boardgame.minDuration <= parseInt(duration, 10) &&
+          parseInt(duration, 10) <= boardgame.maxDuration);
+      // (parseInt(duration, 10) - 10 <= boardgame.duration &&
+      //   parseInt(duration, 10) + 10 >= boardgame.duration);
 
       const meetsLocationCriteria =
         selectedLocations.length === 0 ||

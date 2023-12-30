@@ -11,7 +11,8 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   const [newBoardgameMinPlayers, setNewBoardgameMinPlayers] = useState(0);
   const [newBoardgameMaxPlayers, setNewBoardgameMaxPlayers] = useState(0);
   const [newBoardgameGamemode, setNewBoardgameGamemode] = useState("");
-  const [newBoardgameDuration, setNewBoardgameDuration] = useState("");
+  const [newBoardgameMinDuration, setNewBoardgameMinDuration] = useState(0);
+  const [newBoardgameMaxDuration, setNewBoardgameMaxDuration] = useState(0);
   const [newBoardgameDescription, setNewBoardgameDescription] = useState("");
   const [isNewBoardgameLuck, setNewBoardgameLuck] = useState(false);
   const [isNewBoardgameSkill, setNewBoardgameSkill] = useState(false);
@@ -43,7 +44,8 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
       minPlayers: newBoardgameMinPlayers,
       maxPlayers: newBoardgameMaxPlayers,
       gamemode: newBoardgameGamemode,
-      duration: newBoardgameDuration,
+      minDuration: newBoardgameMinDuration,
+      maxDuration: newBoardgameMaxDuration, 
       description: newBoardgameDescription,
       category: {
         luck: isNewBoardgameLuck,
@@ -59,7 +61,8 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
     setNewBoardgameMinPlayers(0);
     setNewBoardgameMaxPlayers(0);
     setNewBoardgameGamemode("");
-    setNewBoardgameDuration("");
+    setNewBoardgameMinDuration(0);
+    setNewBoardgameMaxDuration(0);
     setNewBoardgameDescription("");
     setNewBoardgameLuck(false);
     setNewBoardgameSkill(false);
@@ -106,43 +109,56 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
         </div>
 
         <div className="flex justify-between gap-5 mb-5">
-          <div className="w-1/3">
+          <div className="w-1/4">
             <label className="block mb-2 text-sm font-medium">
-              Minimale spelers
+              Min. spelers
             </label>
             <input
               type="number"
               id="name"
               className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
-              placeholder="1 speler"
               value={newBoardgameMinPlayers}
               onChange={(e) => setNewBoardgameMinPlayers(e.target.value)}
               required
             />
           </div>
-          <div className="w-1/3">
+          <div className="w-1/4">
             <label className="block mb-2 text-sm font-medium">
-              Maximale spelers
+              Max. spelers
             </label>
             <input
               type="number"
               id="name"
               className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
-              placeholder="4 spelers"
               value={newBoardgameMaxPlayers}
               onChange={(e) => setNewBoardgameMaxPlayers(e.target.value)}
               required
             />
           </div>
-          <div className="w-1/3">
-            <label className="block mb-2 text-sm font-medium">Tijd</label>
+          
+          <div className="w-1/4">
+            <label className="block mb-2 text-sm font-medium">
+              Min. Tijd
+            </label>
             <input
               type="number"
               id="name"
               className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
-              placeholder="30 minuten"
-              value={newBoardgameDuration}
-              onChange={(e) => setNewBoardgameDuration(e.target.value)}
+              value={newBoardgameMinDuration}
+              onChange={(e) => setNewBoardgameMinDuration(e.target.value)}
+              required
+            />
+          </div>
+          <div className="w-1/4">
+            <label className="block mb-2 text-sm font-medium">
+              Max. Tijd
+            </label>
+            <input
+              type="number"
+              id="name"
+              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              value={newBoardgameMaxDuration}
+              onChange={(e) => setNewBoardgameMaxDuration(e.target.value)}
               required
             />
           </div>
