@@ -56,7 +56,7 @@ export default function BoardgameList({
             >
               <div
                 key={boardgame.id}
-                className=" rounded-md overflow-hidden shadow-gray-950 shadow-lg duration-300 boardgame-card"
+                className=" rounded-md overflow-hidden shadow-gray-950 shadow-lg duration-300"
                 onClick={resizeBoardgame(boardgame.id)}
               >
                 {boardgame.imageUrl && (
@@ -81,8 +81,9 @@ export default function BoardgameList({
                             key={category}
                             className="text-xs bg-blue-200 text-blue-800 py-1 px-2 rounded-full"
                           >
-                            {category.charAt(0).toUpperCase() +
-                              category.slice(1)}
+                           {value}
+                            {/* {category.charAt(0).toUpperCase() +
+                              category.slice(1)} */}
                           </li>
                         )
                     )}

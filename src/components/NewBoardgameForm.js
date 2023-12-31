@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { db } from "../config/firebase";
 import { addDoc, collection, doc, limit } from "firebase/firestore";
@@ -14,10 +14,27 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   const [newBoardgameMinDuration, setNewBoardgameMinDuration] = useState(0);
   const [newBoardgameMaxDuration, setNewBoardgameMaxDuration] = useState(0);
   const [newBoardgameDescription, setNewBoardgameDescription] = useState("");
-  const [isNewBoardgameLuck, setNewBoardgameLuck] = useState(false);
-  const [isNewBoardgameSkill, setNewBoardgameSkill] = useState(false);
-  const [isNewBoardgameStrategy, setNewBoardgameStrategy] = useState(false);
+  const [newBoardgameCategory, setNewBoardgameCategory] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const selectRef = useRef(null);
+
+  const handleSelectChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+
+    setNewBoardgameCategory(selectedOptions);
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      const { Select, initTE } = await import("tw-elements");
+      initTE({ Select }, { allowReinits: true });
+    };
+
+    init();
+  }, []);
 
   const handleImageUpload = async () => {
     if (selectedImage) {
@@ -33,7 +50,6 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     const imageUrl = await handleImageUpload();
@@ -45,13 +61,9 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
       maxPlayers: newBoardgameMaxPlayers,
       gamemode: newBoardgameGamemode,
       minDuration: newBoardgameMinDuration,
-      maxDuration: newBoardgameMaxDuration, 
+      maxDuration: newBoardgameMaxDuration,
       description: newBoardgameDescription,
-      category: {
-        luck: isNewBoardgameLuck,
-        skill: isNewBoardgameSkill,
-        strategy: isNewBoardgameStrategy,
-      },
+      category: newBoardgameCategory,
       imageUrl: imageUrl,
     });
 
@@ -64,14 +76,12 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
     setNewBoardgameMinDuration(0);
     setNewBoardgameMaxDuration(0);
     setNewBoardgameDescription("");
-    setNewBoardgameLuck(false);
-    setNewBoardgameSkill(false);
-    setNewBoardgameStrategy(false);
+    setNewBoardgameCategory(null); // needs to be fixed
     setSelectedImage(null);
   };
 
   return (
-    <div className="text-white bg-[#1E203C] w-1/3 flex items-center justify-center rounded-lg p-5" >
+    <div className="text-white bg-[#1E203C] w-1/3 flex items-center justify-center rounded-lg p-5">
       <div className="w-full ">
         <div className="flex mb-5">
           <h1 className="text-3xl font-medium">Nieuw bordspel</h1>
@@ -135,11 +145,9 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
               required
             />
           </div>
-          
+
           <div className="w-1/4">
-            <label className="block mb-2 text-sm font-medium">
-              Min. Tijd
-            </label>
+            <label className="block mb-2 text-sm font-medium">Min. Tijd</label>
             <input
               type="number"
               id="name"
@@ -150,9 +158,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             />
           </div>
           <div className="w-1/4">
-            <label className="block mb-2 text-sm font-medium">
-              Max. Tijd
-            </label>
+            <label className="block mb-2 text-sm font-medium">Max. Tijd</label>
             <input
               type="number"
               id="name"
@@ -191,6 +197,47 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
         </div>
 
         <div className="mb-5">
+          <select
+            id="select"
+            data-te-select-init
+            multiple
+            ref={selectRef}
+            onChange={handleSelectChange}
+            data-te-class-dropdown="relative bg-[#1E203C]"
+            data-te-class-no-result="text-white"
+            data-te-class-select-option="text-white py-3"
+            data-te-select-all="false"
+            data-te-select-displayed-labels="3"
+            data-te-select-placeholder="Kies categorieën"
+            data-te-select-visible-options="4"
+          >
+            <option value="Behendigheid">Behendigheid</option>
+            <option value="Bluf">Bluf</option>
+            <option value="Cijfermatig">Cijfermatig</option>
+            <option value="Communicatie">Communicatie</option>
+            <option value="Geheugen">Geheugen</option>
+            <option value="Geluk">Geluk</option>
+            <option value="Gokken">Gokken</option>
+            <option value="Humor">Humor</option>
+            <option value="Inzicht">Inzicht</option>
+            <option value="Kennis">Kennis</option>
+            <option value="Logica">Logica</option>
+            <option value="Mensenkennis">Mensenkennis</option>
+            <option value="Nauwkeurigheid">Nauwkeurigheid</option>
+            <option value="Planning">Planning</option>
+            <option value="Puzzelen">Puzzelen</option>
+            <option value="Reactievermogen">Reactievermogen</option>
+            <option value="Risico">Risico</option>
+            <option value="Strategie">Strategie</option>
+            <option value="Symboliek">Symboliek</option>
+            <option value="Taalkundig">Taalkundig</option>
+            <option value="Tactiek">Tactiek</option>
+            <option value="Vaardigheid">Vaardigheid</option>
+          </select>
+          <label data-te-select-label-ref>Categorieën</label>
+        </div>
+
+        {/* <div className="mb-5">
           <label className="block mb-2 text-sm font-medium">Categorie</label>
           <div className="flex gap-5">
             <div>
@@ -218,7 +265,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium">Foto</label>
@@ -227,7 +274,6 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             id="name"
             className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
             onChange={(e) => setSelectedImage(e.target.files[0])}
-            
           />
         </div>
 
