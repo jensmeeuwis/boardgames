@@ -1,13 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { IoMdStopwatch } from "react-icons/io";
+import { HiOutlineUsers } from "react-icons/hi2";
+import { BsHouse } from "react-icons/bs";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { BiCategory } from "react-icons/bi";
 
 export default function FilterBoardgames({
   boardgamesList,
   setFilteredBoardgames,
 }) {
   const [players, setPlayers] = useState("");
-  const [duration, setDuration] = useState("");
-  const [selectedLocations, setSelectedLocations] = useState([]);
-  const [selectedGameModes, setSelectedGameModes] = useState([]);
+  const [minDuration, setMinDuration] = useState("");
+  const [maxDuration, setMaxDuration] = useState("");
+  const [selectedLocations, setSelectedLocations] = useState("");
+  const [selectedGamemodes, setSelectedGamemodes] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState("");
+
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const init = async () => {
+      const { Select, initTE } = await import("tw-elements");
+      initTE({ Select }, { allowReinits: true });
+    };
+
+    init();
+  }, []);
 
   useEffect(() => {
     const filteredBoardgames = boardgamesList.filter((boardgame) => {
@@ -17,66 +35,89 @@ export default function FilterBoardgames({
           parseInt(players, 10) <= boardgame.maxPlayers);
 
       const meetsDurationCriteria =
-        duration === "" ||
-        (boardgame.minDuration <= parseInt(duration, 10) &&
-          parseInt(duration, 10) <= boardgame.maxDuration);
-      // (parseInt(duration, 10) - 10 <= boardgame.duration &&
-      //   parseInt(duration, 10) + 10 >= boardgame.duration);
+        (minDuration === "" &&
+          boardgame.maxDuration <= parseInt(maxDuration, 10)) ||
+        (maxDuration === "" &&
+          boardgame.minDuration >= parseInt(minDuration, 10)) ||
+        (minDuration === "" && maxDuration === "") ||
+        (boardgame.minDuration >= parseInt(minDuration, 10) &&
+          boardgame.maxDuration <= parseInt(maxDuration, 10));
 
       const meetsLocationCriteria =
         selectedLocations.length === 0 ||
         selectedLocations.includes(boardgame.location);
 
       const meetsGamemodeCriteria =
-        selectedGameModes.length === 0 ||
-        selectedGameModes.includes(boardgame.gamemode);
+        selectedGamemodes.length === 0 ||
+        selectedGamemodes.includes(boardgame.gamemode);
+
+      const meetsCategoryCriteria =
+        selectedCategories.length === 0 ||
+        selectedCategories.some((category) =>
+          boardgame.category.includes(category)
+        );
 
       return (
         meetsGamemodeCriteria &&
         meetsPlayerCriteria &&
         meetsLocationCriteria &&
-        meetsDurationCriteria
+        meetsDurationCriteria &&
+        meetsCategoryCriteria
       );
     });
 
     setFilteredBoardgames(filteredBoardgames);
   }, [
     players,
-    duration,
+    minDuration,
+    maxDuration,
     selectedLocations,
-    selectedGameModes,
-    boardgamesList,
-    setFilteredBoardgames,
+    selectedGamemodes,
+    selectedCategories,
   ]);
 
   const handlePlayersChange = (event) => {
     setPlayers(event.target.value);
   };
 
-  const handleDurationChange = (event) => {
-    setDuration(event.target.value);
+  const handleMinDurationChange = (event) => {
+    setMinDuration(event.target.value);
   };
 
-  const handleLocationChange = (location) => {
-    const updatedLocations = selectedLocations.includes(location)
-      ? selectedLocations.filter((loc) => loc !== location)
-      : [...selectedLocations, location];
-
-    setSelectedLocations(updatedLocations);
+  const handleMaxDurationChange = (event) => {
+    setMaxDuration(event.target.value);
   };
 
-  const handleGamemodeChange = (gamemode) => {
-    const updatedGameModes = selectedGameModes.includes(gamemode)
-      ? selectedGameModes.filter((mode) => mode !== gamemode)
-      : [...selectedGameModes, gamemode];
+  const handleLocationChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
 
-    setSelectedGameModes(updatedGameModes);
+    setSelectedLocations(selectedOptions);
+  };
+
+  const handleGamemodeChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+
+    setSelectedGamemodes(selectedOptions);
+  };
+
+  const handleCategoryChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+
+    setSelectedCategories(selectedOptions);
   };
 
   return (
     <div className="mx-5 pt-5">
-      <div className="mb-5">
-        <label className="">Spelers:</label>
+      <div className="mb-5 flex gap-5">
+        <label className="flex justify-center items-center">
+          <HiOutlineUsers className="w-8 h-8" />
+        </label>
         <input
           type="number"
           id="players"
@@ -87,69 +128,136 @@ export default function FilterBoardgames({
         />
       </div>
 
-      <div className="mb-5">
-        <label className="">Duur:</label>
+      <div className="mb-5 flex gap-5">
+        <label className="flex justify-center items-center">
+          <IoMdStopwatch className="w-8 h-8" />
+        </label>
         <input
           type="number"
           id="duration"
-          className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
-          placeholder="Tijd ofzo"
-          value={duration}
-          onChange={handleDurationChange}
+          className="block w-1/2 py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+          placeholder="Min."
+          value={minDuration}
+          onChange={handleMinDurationChange}
+        />
+        <input
+          type="number"
+          id="duration"
+          className="block w-1/2 py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+          placeholder="Max."
+          value={maxDuration}
+          onChange={handleMaxDurationChange}
         />
       </div>
 
-      <div className="mb-5">
-        <label className=" ">Locaties:</label>
-        <div>
-          <input
-            type="checkbox"
-            id="locationSophia"
-            checked={selectedLocations.includes("Sophia")}
-            onChange={() => handleLocationChange("Sophia")}
-          />
-          <label className="">Sophia</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="locationJens"
-            checked={selectedLocations.includes("Jens")}
-            onChange={() => handleLocationChange("Jens")}
-          />
-          <label className="">Jens</label>
-        </div>
+      <div className="mb-5 flex gap-5">
+        <label className="flex justify-center items-center">
+          <BsHouse className="w-8 h-8" />
+        </label>
+        <select
+          id="select"
+          data-te-select-init
+          multiple
+          ref={selectRef}
+          onChange={handleLocationChange}
+          data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+          data-te-class-no-result="text-white"
+          data-te-class-select-option="text-white py-2 pl-5"
+          data-te-select-all="false"
+          data-te-select-displayed-labels="1"
+          data-te-select-options-selected-label="opties geselecteerd"
+          data-te-select-placeholder="Locaties"
+          data-te-select-visible-options="4"
+        >
+          {boardgamesList
+            .map(({ name, location }) => ({ name, location }))
+            .filter(
+              (boardgame, index, self) =>
+                index ===
+                self.findIndex((bg) => bg.location === boardgame.location)
+            )
+            .sort((a, b) => a.location.localeCompare(b.location))
+            .map(({ name, location }) => (
+              <option key={name} value={location}>
+                {location}
+              </option>
+            ))}
+        </select>
+        <label data-te-select-label-ref>Locaties</label>
       </div>
 
-      <div className="mb-5">
-        <label className="">Gamemodes:</label>
-        <div>
-          <input
-            type="checkbox"
-            id="gamemodePvP"
-            checked={selectedGameModes.includes("PvP")}
-            onChange={() => handleGamemodeChange("PvP")}
-          />
-          <label className="">PvP</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="gamemodeCooperative"
-            checked={selectedGameModes.includes("Coöperatief")}
-            onChange={() => handleGamemodeChange("Coöperatief")}
-          />
-          <label className="">Coöperatief</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="gamemodeTeams"
-            checked={selectedGameModes.includes("Teams")}
-            onChange={() => handleGamemodeChange("Teams")}
-          />
-          <label className="">Teams</label>
-        </div>
+      <div className="mb-5 flex gap-5">
+        <label className="flex justify-center items-center">
+          <IoGameControllerOutline className="w-8 h-8" />
+        </label>
+        <select
+          id="select"
+          data-te-select-init
+          multiple
+          ref={selectRef}
+          onChange={handleGamemodeChange}
+          data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+          data-te-class-no-result="text-white"
+          data-te-class-select-option="text-white py-2 pl-5"
+          data-te-select-all="false"
+          data-te-select-displayed-labels="1"
+          data-te-select-options-selected-label="opties geselecteerd"
+          data-te-select-placeholder="Spelmodus"
+          data-te-select-visible-options="4"
+        >
+          {boardgamesList
+            .filter(
+              (boardgame, index, self) =>
+                index ===
+                self.findIndex((bg) => bg.gamemode === boardgame.gamemode)
+            )
+            .sort((a, b) => a.gamemode.localeCompare(b.gamemode))
+            .map((boardgame) => (
+              <option key={boardgame.name} value={boardgame.gamemode}>
+                {boardgame.gamemode}
+              </option>
+            ))}
+        </select>
+        <label data-te-select-label-ref>Spelmodus</label>
+      </div>
+
+      <div className="mb-5 flex gap-5">
+        <label className="flex justify-center items-center">
+          <BiCategory className="w-8 h-8" />
+        </label>
+
+        <select
+          id="select"
+          data-te-select-init
+          multiple
+          ref={selectRef}
+          onChange={handleCategoryChange}
+          data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+          data-te-class-no-result="text-white"
+          data-te-class-select-option="text-white py-2 pl-5"
+          data-te-select-all="false"
+          data-te-select-displayed-labels="1"
+          data-te-select-options-selected-label="opties geselecteerd"
+          data-te-select-placeholder="Categorieën"
+          data-te-select-visible-options="4"
+        >
+          {boardgamesList
+            .flatMap(({ name, category }) =>
+              category.map((cat) => ({ name, category: cat }))
+            )
+            .filter(
+              (boardgame, index, self) =>
+                self.findIndex((bg) => bg.category === boardgame.category) ===
+                index
+            )
+            .sort((a, b) => a.category.localeCompare(b.category))
+            .map(({ name, category }) => (
+              <option key={name} value={category}>
+                {category}
+              </option>
+            ))}
+        </select>
+        <label data-te-select-label-ref>Categorieën</label>
       </div>
     </div>
   );

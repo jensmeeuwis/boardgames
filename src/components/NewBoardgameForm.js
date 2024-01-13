@@ -203,12 +203,13 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             multiple
             ref={selectRef}
             onChange={handleSelectChange}
-            data-te-class-dropdown="relative bg-[#1E203C]"
+            data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
             data-te-class-no-result="text-white"
-            data-te-class-select-option="text-white py-3"
+            data-te-class-select-option="text-white py-2 pl-5"
             data-te-select-all="false"
             data-te-select-displayed-labels="3"
-            data-te-select-placeholder="Kies categorieën"
+            data-te-select-options-selected-label="opties geselecteerd"
+            data-te-select-placeholder="Locaties"
             data-te-select-visible-options="4"
           >
             <option value="Behendigheid">Behendigheid</option>
