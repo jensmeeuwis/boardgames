@@ -55,12 +55,11 @@ export default function BoardgameList({
               onClick={() => setSelectedId(boardgame.id)}
             >
               <div
-                key={boardgame.id}
-                className=" rounded-md overflow-hidden shadow-gray-950 shadow-lg duration-300"
+                className="rounded-md overflow-hidden shadow-gray-950 shadow-lg duration-300 flex flex-col h-full"
                 onClick={resizeBoardgame(boardgame.id)}
               >
                 {boardgame.imageUrl && (
-                  <div className=" aspect-square">
+                  <div className="aspect-square">
                     <img
                       src={boardgame.imageUrl}
                       alt={boardgame.name}
@@ -68,8 +67,8 @@ export default function BoardgameList({
                     />
                   </div>
                 )}
-                <div className="p-4">
-                  <h1 className="text-xl font-semibold mb-2">
+                <div className="flex-1 p-4 flex flex-col">
+                  <h1 className="text-xl font-semibold mb-4 line-clamp-2">
                     {boardgame.name}
                   </h1>
 
@@ -81,9 +80,7 @@ export default function BoardgameList({
                             key={category}
                             className="text-xs bg-blue-200 text-blue-800 py-1 px-2 rounded-full"
                           >
-                           {value}
-                            {/* {category.charAt(0).toUpperCase() +
-                              category.slice(1)} */}
+                            {value}
                           </li>
                         )
                     )}
@@ -118,10 +115,10 @@ export default function BoardgameList({
                   </div>
                   {adminUsers.includes(auth.currentUser.email) && (
                     <button
-                      className="w-full text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+                      className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
                       onClick={() => onDeleteBoardgame(boardgame.id)}
                     >
-                      Delete
+                      Verwijder
                     </button>
                   )}
                 </div>
