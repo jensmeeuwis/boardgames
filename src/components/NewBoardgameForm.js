@@ -19,7 +19,12 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
 
   const selectRef = useRef(null);
 
-  const handleSelectChange = (event) => {
+  const handleSelectGamemode = (event) => {
+    const selectedValue = event.target.value;
+    setNewBoardgameGamemode(selectedValue);
+  };
+
+  const handleSelectCategory = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions).map(
       (option) => option.value
     );
@@ -171,16 +176,23 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium">Gamemode</label>
-          <input
-            type="text"
-            id="name"
-            className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
-            placeholder="Coöperatief"
-            value={newBoardgameGamemode}
-            onChange={(e) => setNewBoardgameGamemode(e.target.value)}
-            required
-          />
+          <select
+            id="select"
+            data-te-select-init
+            ref={selectRef}
+            onChange={handleSelectGamemode}
+            data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+            data-te-class-no-result="text-white"
+            data-te-class-select-option="text-white py-2 pl-5"
+            data-te-select-all="false"
+            data-te-select-placeholder="Spelmodus"
+            data-te-select-visible-options="4"
+          >
+            <option value="Coöperatief">Coöperatief</option>
+            <option value="PvP">PvP</option>
+            <option value="Teams">Teams</option>
+          </select>
+          <label data-te-select-label-ref>Spelmodus</label>
         </div>
 
         <div className="mb-5">
@@ -202,7 +214,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             data-te-select-init
             multiple
             ref={selectRef}
-            onChange={handleSelectChange}
+            onChange={handleSelectCategory}
             data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
             data-te-class-no-result="text-white"
             data-te-class-select-option="text-white py-2 pl-5"
@@ -237,36 +249,6 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           </select>
           <label data-te-select-label-ref>Categorieën</label>
         </div>
-
-        {/* <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium">Categorie</label>
-          <div className="flex gap-5">
-            <div>
-              <label>Luck</label>
-              <input
-                type="checkbox"
-                checked={isNewBoardgameLuck}
-                onChange={(e) => setNewBoardgameLuck(e.target.checked)}
-              />
-            </div>
-            <div>
-              <label>Skill</label>
-              <input
-                type="checkbox"
-                checked={isNewBoardgameSkill}
-                onChange={(e) => setNewBoardgameSkill(e.target.checked)}
-              />
-            </div>
-            <div>
-              <label>Strategy</label>
-              <input
-                type="checkbox"
-                checked={isNewBoardgameStrategy}
-                onChange={(e) => setNewBoardgameStrategy(e.target.checked)}
-              />
-            </div>
-          </div>
-        </div> */}
 
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium">Foto</label>
