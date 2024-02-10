@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { BsSortAlphaDown } from "react-icons/bs";
+import { BsSortAlphaUp } from "react-icons/bs";
 
 export default function SortBoardgames({
   boardgamesList,
@@ -17,32 +19,20 @@ export default function SortBoardgames({
     setSortedBoardgamesList(sortedBoardgamesList);
   }, [sortOrder, boardgamesList]);
 
-    const handleSortSelection = () => {
-        const sortedBoardgamesList = [...boardgamesList].sort((a, b) => {
-            if (sortOrder === "asc") {
-                return a.name.localeCompare(b.name);
-            } else {
-                return b.name.localeCompare(a.name);
-            }
-        });
-        setSortedBoardgamesList(sortedBoardgamesList);
-    };
+  const handleSortSelection = () => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+  };
 
   return (
     <div>
-      {/* <button onClick={() => setSortOrder("asc")}>Sorteer oplopend</button>
-      <button onClick={() => setSortOrder("desc")}>Sorteer aflopend</button> */}
-      <select
-        className="block w-full p-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
-        value={sortOrder}
-        onChange={(e) => {
-            setSortOrder(e.target.value);
-            handleSortSelection();
-        }}
-      >
-        <option value="asc">A-Z</option>
-        <option value="desc">Z-A</option>
-      </select>
+      <button className="block" onClick={handleSortSelection}>
+        {sortOrder === "asc" ? (
+          <BsSortAlphaDown className="w-6 h-6" />
+        ) : (
+          <BsSortAlphaUp className="w-6 h-6" />
+        )}
+      </button>
     </div>
   );
 }
