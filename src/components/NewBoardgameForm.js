@@ -86,7 +86,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   };
 
   return (
-    <div className="text-white bg-[#1E203C] w-1/3 flex items-center justify-center rounded-lg p-5">
+    <div className="text-white bg-[#1E203C] w-full sm:w-2/3 md:w-1/2 lg:w-1/3 flex items-center justify-center rounded-lg p-5">
       <div className="w-full ">
         <div className="flex mb-5">
           <h1 className="text-3xl font-medium">Nieuw bordspel</h1>
@@ -123,8 +123,8 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           </div>
         </div>
 
-        <div className="flex justify-between gap-5 mb-5">
-          <div className="w-1/4">
+        <div className="grid grid-cols-2 justify-between gap-5 mb-5">
+          <div className="w-full">
             <label className="block mb-2 text-sm font-medium">
               Min. spelers
             </label>
@@ -137,7 +137,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
               required
             />
           </div>
-          <div className="w-1/4">
+          <div className="w-full">
             <label className="block mb-2 text-sm font-medium">
               Max. spelers
             </label>
@@ -151,7 +151,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             />
           </div>
 
-          <div className="w-1/4">
+          <div className="w-full">
             <label className="block mb-2 text-sm font-medium">Min. Tijd</label>
             <input
               type="number"
@@ -162,7 +162,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
               required
             />
           </div>
-          <div className="w-1/4">
+          <div className="w-full">
             <label className="block mb-2 text-sm font-medium">Max. Tijd</label>
             <input
               type="number"

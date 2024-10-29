@@ -41,7 +41,7 @@ export default function BoardgameList({
         )}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
         <AnimatePresence initial={false}>
           {boardgames.map((boardgame) => (
             <motion.div
@@ -72,7 +72,7 @@ export default function BoardgameList({
                     {boardgame.name}
                   </h1>
 
-                  <ul className="flex space-x-2 mb-4">
+                  <ul className="flex gap-2 mb-4 flex-wrap">
                     {Object.entries(boardgame.category).map(
                       ([category, value]) =>
                         value && (
@@ -85,6 +85,8 @@ export default function BoardgameList({
                         )
                     )}
                   </ul>
+                  
+                  <div className="flex-grow"></div>
 
                   <div className="grid grid-cols-2 text-gray-300">
                     <div className="mb-2 flex">
