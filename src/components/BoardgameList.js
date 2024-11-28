@@ -11,6 +11,7 @@ export default function BoardgameList({
   boardgames,
   onDeleteBoardgame,
   adminUsers,
+  randomBoardgame,
 }) {
   const [isResized, setIsResized] = useState(false);
   const [resizedBoardgame, setResizedBoardgame] = useState(null);
@@ -43,7 +44,7 @@ export default function BoardgameList({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
         <AnimatePresence initial={false}>
-          {boardgames.map((boardgame) => (
+          {(randomBoardgame.length > 0 ? randomBoardgame : boardgames).map((boardgame) => (
             <motion.div
               key={boardgame.id}
               initial={{ opacity: 0, y: 10 }}

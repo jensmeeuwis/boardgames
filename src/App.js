@@ -16,6 +16,7 @@ export default function App() {
   const [sortedBoardgamesList, setSortedBoardgamesList] = useState([]);
   const [searchedBoardgames, setSearchedBoardgames] = useState([]);
   const [filteredBoardgames, setFilteredBoardgames] = useState([]);
+  const [randomBoardgame, setRandomBoardgame] = useState([])
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -29,6 +30,19 @@ export default function App() {
       setSearchedBoardgames(data); // Initialiseer de lijst van gezocht bordspellen met alle bordspellen
     });
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1023 && showFilter) {
+        setShowFilter(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [showFilter]);
 
   const handleAddBoardgame = async (boardgameData) => {
     // Voeg een nieuw bordspel toe
@@ -80,7 +94,9 @@ export default function App() {
             <div className=" w-full bg-gradient-to-b from-[#2C2F44] to-[#355EA9] h-screen">
               <FilterBoardgames
                 boardgamesList={boardgamesList}
+                sortedBoardgamesList={sortedBoardgamesList}
                 setFilteredBoardgames={setFilteredBoardgames}
+                setRandomBoardgame={setRandomBoardgame}
               />
             </div>
           </div>
@@ -110,29 +126,31 @@ export default function App() {
                   setSortedBoardgamesList={setSortedBoardgamesList}
                 />
                 {adminUsers.includes(auth.currentUser.email) && (
-                    <IoAdd
-                      className="w-8 h-8 hover:cursor-pointer"
-                      onClick={toggleForm}
-                    />
+                  <IoAdd
+                    className="w-8 h-8 hover:cursor-pointer"
+                    onClick={toggleForm}
+                  />
                 )}
                 <Logout user={user} setUser={setUser} />
               </div>
             </div>
             {/* bordspellen lijst */}
             <div className="bg-[#1E203C] h-[calc(100%-4rem)] p-8 mt-16">
-              {showFilter ? (
+              <div className={`${showFilter ? "" : "hidden"}`}>
                 <FilterBoardgames
                   boardgamesList={boardgamesList}
+                  sortedBoardgamesList={sortedBoardgamesList}
                   setFilteredBoardgames={setFilteredBoardgames}
-                  onMobile={onMobile}
+                  setRandomBoardgame={setRandomBoardgame}
                 />
-              ) : (
-                <BoardgameList
-                  boardgames={sortedBoardgamesList}
-                  onDeleteBoardgame={handleDeleteBoardgame}
-                  adminUsers={adminUsers}
-                />
-              )}
+              </div>
+
+              <BoardgameList
+                boardgames={sortedBoardgamesList}
+                randomBoardgame={randomBoardgame}
+                onDeleteBoardgame={handleDeleteBoardgame}
+                adminUsers={adminUsers}
+              />
             </div>
           </div>
         </div>

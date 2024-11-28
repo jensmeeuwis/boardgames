@@ -9,8 +9,9 @@ import FilterInput from "./FilterInput";
 
 export default function FilterBoardgames({
   boardgamesList,
+  sortedBoardgamesList,
   setFilteredBoardgames,
-  onMobile,
+  setRandomBoardgame,
 }) {
   const [players, setPlayers] = useState("");
   const [minDuration, setMinDuration] = useState("");
@@ -135,8 +136,24 @@ export default function FilterBoardgames({
     .sort()
     .map((category) => ({ value: category, label: category }));
 
+  const random = () => {
+    const randomIndex = Math.floor(Math.random() * sortedBoardgamesList.length);
+    const randomBoardgame = [sortedBoardgamesList[randomIndex]];
+    setRandomBoardgame(randomBoardgame);
+  };
+
+  const clear = () => {
+    setRandomBoardgame([]);
+    setPlayers("");
+    setMinDuration("");
+    setMaxDuration("");
+    // setSelectedLocations([]);
+    // setSelectedGamemodes([]);
+    // setSelectedCategories([]);
+  };
+
   return (
-    <div className="mx-5 pt-5">
+    <div className="mx-5 py-5">
       <div className="mb-5 flex gap-5">
         <label className="flex justify-center items-center">
           <HiOutlineUsers className="w-8 h-8" />
@@ -197,6 +214,19 @@ export default function FilterBoardgames({
         placeholder="Categorieën"
         label="Categorieën"
       />
+
+      <button
+        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+        onClick={() => random()}
+      >
+        Random
+      </button>
+      <button
+        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+        onClick={() => clear()}
+      >
+        Clear
+      </button>
     </div>
   );
 }
