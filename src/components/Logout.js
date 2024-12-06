@@ -15,7 +15,6 @@ export default function Logout({ setUser }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (!authUser) {
-        // Gebruiker is uitgelogd, update de gebruikerstaat in de hoofdcomponent naar null
         setUser(null);
       }
     });

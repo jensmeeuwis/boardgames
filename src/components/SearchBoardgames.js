@@ -49,5 +49,3 @@ export default function SearchBoardgames({
     </form>
   );
 }
-
-//       focus:border-blue-500   dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500

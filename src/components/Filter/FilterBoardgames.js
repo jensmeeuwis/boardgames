@@ -11,6 +11,7 @@ export default function FilterBoardgames({
   boardgamesList,
   sortedBoardgamesList,
   setFilteredBoardgames,
+  randomBoardgame,
   setRandomBoardgame,
 }) {
   const [players, setPlayers] = useState("");
@@ -142,6 +143,10 @@ export default function FilterBoardgames({
     setRandomBoardgame(randomBoardgame);
   };
 
+  const list = () => {
+    setRandomBoardgame([]);
+  };
+
   const clear = () => {
     setRandomBoardgame([]);
     setPlayers("");
@@ -221,6 +226,14 @@ export default function FilterBoardgames({
       >
         Random
       </button>
+      {randomBoardgame.length > 0 && (
+        <button
+          className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+          onClick={() => list()}
+        >
+          Lijst
+        </button>
+      )}
       <button
         className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
         onClick={() => clear()}

@@ -17,10 +17,8 @@ export default function Auth({ user, setUser }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // Gebruiker is ingelogd, update de gebruikerstaat in de hoofdcomponent
         setUser(authUser);
       } else {
-        // Gebruiker is niet ingelogd, zet de gebruikerstaat naar null in de hoofdcomponent
         setUser(null);
       }
     });
@@ -40,11 +38,7 @@ export default function Auth({ user, setUser }) {
           <h1 className="text-3xl mb-4 font-medium">Boardgames</h1>
 
           <div className="mb-5">
-            <label
-              className="block mb-2 text-sm font-medium"
-            >
-              Email
-            </label>
+            <label className="block mb-2 text-sm font-medium">Email</label>
             <input
               type="email"
               id="email"
@@ -56,11 +50,7 @@ export default function Auth({ user, setUser }) {
           </div>
 
           <div className="mb-5">
-            <label
-              className="block mb-2 text-sm font-medium"
-            >
-              Wachtwoord
-            </label>
+            <label className="block mb-2 text-sm font-medium">Wachtwoord</label>
             <input
               type="password"
               id="password"

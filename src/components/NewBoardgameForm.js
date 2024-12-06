@@ -72,7 +72,6 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
       imageUrl: imageUrl,
     });
 
-    // Reset form fields
     setNewBoardgameName("");
     setNewBoardgameLocation("");
     setNewBoardgameMinPlayers(0);

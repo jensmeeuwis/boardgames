@@ -16,7 +16,7 @@ export default function App() {
   const [sortedBoardgamesList, setSortedBoardgamesList] = useState([]);
   const [searchedBoardgames, setSearchedBoardgames] = useState([]);
   const [filteredBoardgames, setFilteredBoardgames] = useState([]);
-  const [randomBoardgame, setRandomBoardgame] = useState([])
+  const [randomBoardgame, setRandomBoardgame] = useState([]);
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -24,10 +24,9 @@ export default function App() {
   const adminUsers = ["test@gmail.com", "hoi@gmail.com"];
 
   useEffect(() => {
-    // Haal de bordspellen op wanneer de component wordt geladen
     getBoardgames().then((data) => {
       setBoardgamesList(data);
-      setSearchedBoardgames(data); // Initialiseer de lijst van gezocht bordspellen met alle bordspellen
+      setSearchedBoardgames(data);
     });
   }, []);
 
@@ -45,23 +44,19 @@ export default function App() {
   }, [showFilter]);
 
   const handleAddBoardgame = async (boardgameData) => {
-    // Voeg een nieuw bordspel toe
     await addBoardgame(boardgameData);
 
-    // Haal de bijgewerkte lijst van bordspellen op
     const updatedBoardgames = await getBoardgames();
     setBoardgamesList(updatedBoardgames);
-    setSearchedBoardgames(updatedBoardgames); // Update de lijst van gezocht bordspellen na toevoeging
+    setSearchedBoardgames(updatedBoardgames);
   };
 
   const handleDeleteBoardgame = async (boardgameId) => {
-    // Verwijder een bordspel
     await deleteBoardgame(boardgameId);
 
-    // Haal de bijgewerkte lijst van bordspellen op
     const updatedBoardgames = await getBoardgames();
     setBoardgamesList(updatedBoardgames);
-    setSearchedBoardgames(updatedBoardgames); // Update de lijst van gezocht bordspellen na verwijdering
+    setSearchedBoardgames(updatedBoardgames);
   };
 
   const toggleForm = () => {
@@ -96,12 +91,13 @@ export default function App() {
                 boardgamesList={boardgamesList}
                 sortedBoardgamesList={sortedBoardgamesList}
                 setFilteredBoardgames={setFilteredBoardgames}
+                randomBoardgame={randomBoardgame}
                 setRandomBoardgame={setRandomBoardgame}
               />
             </div>
           </div>
           {/* Bordspellen balk */}
-          <div className="w-full lg:w-4/5 ml-auto ">
+          <div className="w-full lg:w-4/5 ml-auto">
             {/* Zoekbalk */}
             <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex items-center fixed w-full lg:w-4/5 z-40">
               <div className="w-3/12 flex items-center justify-center">
@@ -122,7 +118,7 @@ export default function App() {
 
               <div className="flex items-center justify-between w-3/12 px-1 sm:px-4 md:px-8 lg:px-14">
                 <SortBoardgames
-                  boardgamesList={searchedBoardgames} // Toon gesorteerde bordspellen op basis van zoekresultaten
+                  boardgamesList={searchedBoardgames}
                   setSortedBoardgamesList={setSortedBoardgamesList}
                 />
                 {adminUsers.includes(auth.currentUser.email) && (
@@ -141,10 +137,10 @@ export default function App() {
                   boardgamesList={boardgamesList}
                   sortedBoardgamesList={sortedBoardgamesList}
                   setFilteredBoardgames={setFilteredBoardgames}
+                  randomBoardgame={randomBoardgame}
                   setRandomBoardgame={setRandomBoardgame}
                 />
               </div>
-
               <BoardgameList
                 boardgames={sortedBoardgamesList}
                 randomBoardgame={randomBoardgame}
