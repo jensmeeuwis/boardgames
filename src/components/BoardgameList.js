@@ -131,7 +131,7 @@ export default function BoardgameList({
                         <p className="ml-2">{boardgame.gamemode}</p>
                       </div>
                     </div>
-                    {adminUsers.includes(auth.currentUser.email) && (
+                    {(adminUsers.includes(auth.currentUser.email) || (auth.currentUser.uid === boardgame.userId)) && (
                       <button
                         className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
                         onClick={() => onDeleteBoardgame(boardgame.id)}

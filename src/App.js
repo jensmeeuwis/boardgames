@@ -21,7 +21,7 @@ export default function App() {
   const [showForm, setShowForm] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [onMobile, setOnMobile] = useState(false);
-  const adminUsers = ["test@gmail.com", "hoi@gmail.com"];
+  const adminUsers = ["jensmeeuwis@gmail.com"];
 
   useEffect(() => {
     getBoardgames().then((data) => {

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
-import { db } from "../config/firebase";
-import { addDoc, collection, doc, limit } from "firebase/firestore";
 import { storage } from "../config/firebase";
 import { IoMdClose } from "react-icons/io";
+import { getAuth } from "firebase/auth";
 
 export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
@@ -16,6 +15,9 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
   const [newBoardgameDescription, setNewBoardgameDescription] = useState("");
   const [newBoardgameCategory, setNewBoardgameCategory] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  
+  const auth = getAuth()
+  const [userId, setUserId] = useState(auth.currentUser.uid)
 
   const selectRef = useRef(null);
 
@@ -70,6 +72,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
       description: newBoardgameDescription,
       category: newBoardgameCategory,
       imageUrl: imageUrl,
+      userId: userId,
     });
 
     setNewBoardgameName("");
