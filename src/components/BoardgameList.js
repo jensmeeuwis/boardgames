@@ -5,7 +5,7 @@ import { BsHouse } from "react-icons/bs";
 import { IoMdStopwatch } from "react-icons/io";
 import BoardgameModal from "./BoardgameModal";
 import { auth } from "../config/firebase";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { HiOutlineArrowUp } from "react-icons/hi";
 
 export default function BoardgameList({
@@ -34,7 +34,7 @@ export default function BoardgameList({
   return (
     <div>
       <button
-        className="fixed z-40 right-10 bg-gray-700 hover:bg-gray-600 border border-gray-600 transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
+        className="fixed z-40 right-8 bg-gray-700 hover:bg-gray-600 border border-gray-600 transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
         onClick={() => goToTop()}
       >
         <HiOutlineArrowUp />
