@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getBoardgames, addBoardgame, deleteBoardgame } from "./api/boardgames";
+import { getRoles, addRole } from "./api/roles";
 import BoardgameList from "./components/BoardgameList";
 import NewBoardgameForm from "./components/NewBoardgameForm";
 import Auth from "./components/Auth";
@@ -22,6 +23,17 @@ export default function App() {
   const [showFilter, setShowFilter] = useState(false);
   const [onMobile, setOnMobile] = useState(false);
   const adminUsers = ["jensmeeuwis@gmail.com"];
+  const [rolesList, setRolesList] = useState([]);
+
+  const currentUserRole = rolesList.find(
+    (role) => role.userId === auth.currentUser?.uid
+  )?.role;
+
+  useEffect(() => {
+    getRoles().then((data) => {
+      setRolesList(data);
+    });
+  }, []);
 
   useEffect(() => {
     getBoardgames().then((data) => {
@@ -121,14 +133,14 @@ export default function App() {
                   boardgamesList={searchedBoardgames}
                   setSortedBoardgamesList={setSortedBoardgamesList}
                 />
-                {/* {adminUsers.includes(auth.currentUser.email) && ( */}
+                {(currentUserRole === "editor" || currentUserRole === "admin") && (
                   <div>
                     <IoAdd
                       className="w-8 h-8 hover:cursor-pointer block"
                       onClick={toggleForm}
                     />
                   </div>
-                {/* )} */}
+                )}
                 <Logout user={user} setUser={setUser} />
               </div>
             </div>
@@ -148,6 +160,7 @@ export default function App() {
                 randomBoardgame={randomBoardgame}
                 onDeleteBoardgame={handleDeleteBoardgame}
                 adminUsers={adminUsers}
+                currentUserRole={currentUserRole}
               />
             </div>
           </div>

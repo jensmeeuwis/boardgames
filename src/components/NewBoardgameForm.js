@@ -56,6 +56,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
     }
   };
 
+  // TODO: add standard user role
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,7 +84,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
     setNewBoardgameMinDuration(0);
     setNewBoardgameMaxDuration(0);
     setNewBoardgameDescription("");
-    setNewBoardgameCategory(null); // needs to be fixed
+    setNewBoardgameCategory(null); // TODO: needs to be fixed
     setSelectedImage(null);
   };
 
