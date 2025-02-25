@@ -121,12 +121,14 @@ export default function App() {
                   boardgamesList={searchedBoardgames}
                   setSortedBoardgamesList={setSortedBoardgamesList}
                 />
-                {adminUsers.includes(auth.currentUser.email) && (
-                  <IoAdd
-                    className="w-8 h-8 hover:cursor-pointer"
-                    onClick={toggleForm}
-                  />
-                )}
+                {/* {adminUsers.includes(auth.currentUser.email) && ( */}
+                  <div>
+                    <IoAdd
+                      className="w-8 h-8 hover:cursor-pointer block"
+                      onClick={toggleForm}
+                    />
+                  </div>
+                {/* )} */}
                 <Logout user={user} setUser={setUser} />
               </div>
             </div>
