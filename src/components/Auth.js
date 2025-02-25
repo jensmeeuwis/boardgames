@@ -12,6 +12,7 @@ export default function Auth({ user, setUser }) {
   const [showLogin, setShowLogin] = useState(true);
   const [buttonText, setButtonText] = useState(true);
   const [titleText, setTitleText] = useState(true);
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Voorkomt standaard pagina-refresh
@@ -41,6 +42,10 @@ export default function Auth({ user, setUser }) {
   };
 
   useEffect(() => {
+    setPageLoaded(true);
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
@@ -57,7 +62,7 @@ export default function Auth({ user, setUser }) {
       <div className="bg-[#1E203C] w-2/3 max-w-6xl h-1/2 rounded-3xl flex flex-row items-center">
         <AnimatePresence>
           <motion.form
-            onSubmit={showLogin ? handleLogin  : handleRegister }
+            onSubmit={showLogin ? handleLogin : handleRegister}
             className="flex flex-col w-1/2 items-center"
             animate={{ x: showLogin ? "0%" : "100%" }}
             transition={{
@@ -104,31 +109,52 @@ export default function Auth({ user, setUser }) {
         </AnimatePresence>
       </div>
       <motion.div
-        className="bg-[#2C2F44] w-1/3 max-w-xl h-1/2 absolute flex justify-center items-center"
-        animate={{
-          x: showLogin ? "50%" : "-50%",
-          borderTopLeftRadius: showLogin ? "30%" : "4%",
-          borderBottomLeftRadius: showLogin ? "30%" : "4%",
-          borderTopRightRadius: showLogin ? "4%" : "30%",
-          borderBottomRightRadius: showLogin ? "4%" : "30%",
-        }}
-        transition={{
-          duration: 0.6,
-          delay: 0,
-        }}
+        className="bg-[#2C2F44] w-1/3 max-w-xl h-1/2 absolute flex justify-center items-center max-lg:hidden"
+        animate={
+          pageLoaded
+            ? {
+                x: showLogin ? "50%" : "-50%",
+                borderTopLeftRadius: showLogin ? "30%" : "4%",
+                borderBottomLeftRadius: showLogin ? "30%" : "4%",
+                borderTopRightRadius: showLogin ? "4%" : "30%",
+                borderBottomRightRadius: showLogin ? "4%" : "30%",
+              }
+            : {
+                x: "50%",
+                borderTopLeftRadius: showLogin ? "30%" : "4%",
+                borderBottomLeftRadius: showLogin ? "30%" : "4%",
+                borderTopRightRadius: showLogin ? "4%" : "30%",
+                borderBottomRightRadius: showLogin ? "4%" : "30%",
+              }
+        }
+        transition={
+          pageLoaded
+            ? {
+                duration: 0.6,
+                delay: 0,
+              }
+            : { duration: 0 }
+        }
       />
       <AnimatePresence>
         <motion.div
-          className="absolute"
+          className="absolute max-lg:hidden"
           key={0}
-          animate={{
-            x: showLogin ? "-200%" : "-100%",
-            opacity: showLogin ? 0 : 1,
-          }}
-          exit={{ opacity: 0 }}
-          transition={{
-            duration: 0.6,
-          }}
+          animate={
+            pageLoaded
+              ? {
+                  x: showLogin ? "-200%" : "-100%",
+                  opacity: showLogin ? 0 : 1,
+                }
+              : { x: "100%", opacity: 0 }
+          }
+          transition={
+            pageLoaded
+              ? {
+                  duration: 0.6,
+                }
+              : { duration: 0 }
+          }
         >
           <p>Heb je al een account? Log dan hier in.</p>
           <button
@@ -141,15 +167,23 @@ export default function Auth({ user, setUser }) {
         </motion.div>
 
         <motion.div
-          className="absolute"
+          className="absolute max-lg:hidden"
           key={1}
-          animate={{
-            x: showLogin ? "100%" : "200%",
-            opacity: showLogin ? 1 : 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
+          animate={
+            pageLoaded
+              ? {
+                  x: showLogin ? "100%" : "200%",
+                  opacity: showLogin ? 1 : 0,
+                }
+              : { x: "100%", opacity: 1 }
+          }
+          transition={
+            pageLoaded
+              ? {
+                  duration: 0.6,
+                }
+              : { duration: 0 }
+          }
         >
           <p>Nog geen account? Registreer dan hier.</p>
           <button
