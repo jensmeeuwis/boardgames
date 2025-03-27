@@ -9,6 +9,10 @@ module.exports = {
       height: {
         "boardgameList-height": "calc(100% - 64px)",
       },
+      colors: {
+        button: "#2c2f44",
+        border: "#505263",
+      },
     },
   },
   plugins: [require("tw-elements/dist/plugin.cjs")],

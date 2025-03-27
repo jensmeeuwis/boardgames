@@ -8,16 +8,15 @@ export default function FilterSelect({
   label,
 }) {
   return (
-    <div className="flex w-full mb-5 gap-5 [&_[data-te-select-wrapper-ref]]:flex-1 [&_[data-te-select-input-ref]]:bg-gray-700">
+    <div className="flex w-full mb-5 gap-5 text-xl [&_[data-te-select-wrapper-ref]]:flex-1 [&_[data-te-select-input-ref]]:bg-button">
       <label className="flex justify-center items-center">
         <Icon className="w-8 h-8" />
       </label>
       <select
         multiple
         onChange={onChange}
-        className="w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
         data-te-select-init
-        data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+        data-te-class-dropdown="border rounded-b-lg bg-button border-border"
         data-te-class-no-result="text-white"
         data-te-class-select-option="text-white py-2 pl-5"
         data-te-select-all="false"

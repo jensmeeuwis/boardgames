@@ -33,9 +33,9 @@ export default function BoardgameList({
   };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <button
-        className="fixed z-40 right-8 bg-gray-700 hover:bg-gray-600 border border-gray-600 transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
+        className="fixed z-40 right-8 bg-button border border-border hover:bg-border transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
         onClick={() => goToTop()}
       >
         <HiOutlineArrowUp />
@@ -57,7 +57,7 @@ export default function BoardgameList({
         )}
       </AnimatePresence> */}
       <h1 className="mb-5">Aantal resultaten: {boardgames.length}</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
         <AnimatePresence initial={false}>
           {(randomBoardgame.length > 0 ? randomBoardgame : boardgames).map(
             (boardgame) => (
@@ -132,9 +132,10 @@ export default function BoardgameList({
                         <p className="ml-2">{boardgame.gamemode}</p>
                       </div>
                     </div>
-                    {(currentUserRole === "admin" || (auth.currentUser.uid === boardgame.userId)) && (
+                    {(currentUserRole === "admin" ||
+                      auth.currentUser.uid === boardgame.userId) && (
                       <button
-                        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+                        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-button hover:bg-border border border-border transition duration-300"
                         onClick={() => onDeleteBoardgame(boardgame.id)}
                       >
                         Verwijder

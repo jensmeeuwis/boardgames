@@ -221,21 +221,21 @@ export default function FilterBoardgames({
       />
 
       <button
-        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-button hover:bg-border border border-border  transition duration-300"
         onClick={() => random()}
       >
         Random
       </button>
       {randomBoardgame.length > 0 && (
         <button
-          className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+          className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-button hover:bg-border border border-border  transition duration-300"
           onClick={() => list()}
         >
           Lijst
         </button>
       )}
       <button
-        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-gray-700 hover:bg-gray-600 border border-gray-600  transition duration-300"
+        className="w-full mt-4 text-white text-lg p-2 rounded-lg bg-button hover:bg-border border border-border  transition duration-300"
         onClick={() => clear()}
       >
         Clear

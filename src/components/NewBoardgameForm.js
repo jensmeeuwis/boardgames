@@ -104,7 +104,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="text"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="Beverbende"
               value={newBoardgameName}
               onChange={(e) => setNewBoardgameName(e.target.value)}
@@ -117,7 +117,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="text"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="Jens"
               value={newBoardgameLocation}
               onChange={(e) => setNewBoardgameLocation(e.target.value)}
@@ -134,7 +134,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="number"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               value={newBoardgameMinPlayers}
               onChange={(e) => setNewBoardgameMinPlayers(e.target.value)}
               required
@@ -147,7 +147,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="number"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               value={newBoardgameMaxPlayers}
               onChange={(e) => setNewBoardgameMaxPlayers(e.target.value)}
               required
@@ -159,7 +159,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="number"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               value={newBoardgameMinDuration}
               onChange={(e) => setNewBoardgameMinDuration(e.target.value)}
               required
@@ -170,7 +170,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="number"
               id="name"
-              className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               value={newBoardgameMaxDuration}
               onChange={(e) => setNewBoardgameMaxDuration(e.target.value)}
               required
@@ -178,13 +178,13 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           </div>
         </div>
 
-        <div className="mb-5">
+        <div className="mb-5 [&_[data-te-select-input-ref]]:bg-button">
           <select
             id="select"
             data-te-select-init
             ref={selectRef}
             onChange={handleSelectGamemode}
-            data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+            data-te-class-dropdown="border rounded-b-lg bg-button border border-border"
             data-te-class-no-result="text-white"
             data-te-class-select-option="text-white py-2 pl-5"
             data-te-select-all="false"
@@ -203,7 +203,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           <input
             type="text"
             id="name"
-            className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+            className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
             placeholder="Dit bordspel is leuk..."
             value={newBoardgameDescription}
             onChange={(e) => setNewBoardgameDescription(e.target.value)}
@@ -211,14 +211,14 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           />
         </div>
 
-        <div className="mb-5">
+        <div className="mb-5 [&_[data-te-select-input-ref]]:bg-button">
           <select
             id="select"
             data-te-select-init
             multiple
             ref={selectRef}
             onChange={handleSelectCategory}
-            data-te-class-dropdown="border rounded-b-lg bg-gray-700 border-gray-600"
+            data-te-class-dropdown="border rounded-b-lg bg-button border border-border"
             data-te-class-no-result="text-white"
             data-te-class-select-option="text-white py-2 pl-5"
             data-te-select-all="false"
@@ -258,14 +258,14 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           <input
             type="file"
             id="name"
-            className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+            className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
             onChange={(e) => setSelectedImage(e.target.files[0])}
           />
         </div>
 
         <button
           type="submit"
-          className="block w-full p-2 text-lg border rounded-lg bg-gray-700 border-gray-600"
+          className="block w-full p-2 text-lg rounded-lg bg-button hover:bg-border border border-border"
           onClick={handleSubmit}
         >
           Maak bordspel aan

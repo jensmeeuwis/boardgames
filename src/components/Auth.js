@@ -13,6 +13,8 @@ export default function Auth({ user, setUser }) {
   const [buttonText, setButtonText] = useState(true);
   const [titleText, setTitleText] = useState(true);
   const [pageLoaded, setPageLoaded] = useState(false);
+  const [showLoginText, setShowLoginText] = useState(false);
+  const [showRegisterText, setShowRegisterText] = useState(true);
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Voorkomt standaard pagina-refresh
@@ -39,6 +41,22 @@ export default function Auth({ user, setUser }) {
       setButtonText(!buttonText);
       setTitleText(!titleText);
     }, 200);
+
+    if (showLoginText) {
+      setTimeout(() => {
+        setShowLoginText(!showLoginText);
+      }, 600);
+    } else {
+      setShowLoginText(!showLoginText);
+    }
+
+    if (showRegisterText) {
+      setTimeout(() => {
+        setShowRegisterText(!showRegisterText);
+      }, 600);
+    } else {
+      setShowRegisterText(!showRegisterText);
+    }
   };
 
   useEffect(() => {
@@ -58,8 +76,10 @@ export default function Auth({ user, setUser }) {
   }, [setUser]);
 
   return (
-    <div className="w-full h-screen bg-gradient-to-b from-[#2C2F44] to-[#355EA9] flex items-center justify-center text-white ">
-      <div className="bg-[#1E203C] w-2/3 max-w-6xl h-1/2 rounded-3xl flex flex-row items-center">
+    <div className="w-full h-screen bg-gradient-to-b from-[#a8aabb] to-[#355EA9] flex items-center justify-center text-white ">
+      <h1 className="absolute text-7xl top-40">Boardgames</h1>
+      {/* <img className="absolute text-7xl top-40" src="/logo.png" alt=""/> */}
+      <div className="bg-[#1e203c88] w-2/3 max-w-6xl h-1/2 rounded-3xl flex flex-row items-center">
         <AnimatePresence>
           <motion.form
             onSubmit={showLogin ? handleLogin : handleRegister}
@@ -79,7 +99,7 @@ export default function Auth({ user, setUser }) {
                 <input
                   type="email"
                   id="email"
-                  className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+                  className="bg-button border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
                   placeholder="naam@mail.com"
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -93,14 +113,14 @@ export default function Auth({ user, setUser }) {
                   type="password"
                   id="password"
                   placeholder="Wachtwoord"
-                  className="bg-gray-700 border border-gray-600 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+                  className="bg-button border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
               <motion.button
                 type="submit"
-                className="block w-auto py-2 px-5 text-lg border rounded-lg bg-gray-700 border-gray-600"
+                className="block w-auto py-2 px-5 text-lg border rounded-lg bg-button border-border hover:bg-border transition duration-300"
               >
                 {buttonText ? "Login" : "Registreer"}
               </motion.button>
@@ -109,11 +129,11 @@ export default function Auth({ user, setUser }) {
         </AnimatePresence>
       </div>
       <motion.div
-        className="bg-[#2C2F44] w-1/3 max-w-xl h-1/2 absolute flex justify-center items-center max-lg:hidden"
+        className="bg-button w-1/3 max-w-xl h-1/2 absolute flex justify-center items-center max-lg:hidden"
         animate={
           pageLoaded
             ? {
-                x: showLogin ? "50%" : "-50%",
+                x: showLogin ? "50.2%" : "-50.2%",
                 borderTopLeftRadius: showLogin ? "30%" : "4%",
                 borderBottomLeftRadius: showLogin ? "30%" : "4%",
                 borderTopRightRadius: showLogin ? "4%" : "30%",
@@ -138,7 +158,7 @@ export default function Auth({ user, setUser }) {
       />
       <AnimatePresence>
         <motion.div
-          className="absolute max-lg:hidden"
+          className={`absolute max-lg:hidden ${showLoginText ? "" : "hidden"} `}
           key={0}
           animate={
             pageLoaded
@@ -156,10 +176,11 @@ export default function Auth({ user, setUser }) {
               : { duration: 0 }
           }
         >
-          <p>Heb je al een account? Log dan hier in.</p>
+          <h2 className="text-4xl">Welkom terug!</h2>
+          <p className="mt-1">Heb je al een account? Log dan hier in.</p>
           <button
             onClick={toggleForm}
-            className="mt-4 py-2 px-4 bg-gray-700 rounded-lg"
+            className="mt-6 py-2 px-4 bg-[#383C56] rounded-lg"
             id="login"
           >
             Login
@@ -167,7 +188,9 @@ export default function Auth({ user, setUser }) {
         </motion.div>
 
         <motion.div
-          className="absolute max-lg:hidden"
+          className={`absolute max-lg:hidden ${
+            showRegisterText ? "" : "hidden"
+          }`}
           key={1}
           animate={
             pageLoaded
@@ -185,10 +208,11 @@ export default function Auth({ user, setUser }) {
               : { duration: 0 }
           }
         >
-          <p>Nog geen account? Registreer dan hier.</p>
+          <h2 className="text-4xl">Nieuw hier?</h2>
+          <p className="mt-1">Nog geen account? Registreer dan hier.</p>
           <button
             onClick={toggleForm}
-            className="mt-4 py-2 px-4 bg-gray-700 rounded-lg"
+            className="mt-6 py-2 px-4 bg-[#383C56] rounded-lg"
             id="register"
           >
             Registreer

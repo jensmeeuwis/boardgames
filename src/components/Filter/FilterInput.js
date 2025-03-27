@@ -11,7 +11,7 @@ export default function FilterInput({
     <input
       type={type}
       id={id}
-      className="block w-full py-2 px-3 text-xl border rounded-lg bg-gray-700 border-gray-600"
+      className="block w-full py-2 px-3 text-xl border rounded-lg bg-button border-border"
       placeholder={placeholder}
       value={value}
       onChange={onChange}

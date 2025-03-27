@@ -94,11 +94,11 @@ export default function App() {
           {/* optie balk */}
           <div className="w-1/5 fixed max-lg:hidden">
             {/* Website naam */}
-            <div className="w-full bg-[#2C2F44] h-16 flex items-center justify-center  text-center border-b border-gray-600 text-3xl">
+            <div className="w-full bg-button h-16 flex items-center justify-center text-center border-b border-gray-500 text-3xl">
               Boardgames
             </div>
             {/* Opties */}
-            <div className=" w-full bg-gradient-to-b from-[#2C2F44] to-[#355EA9] h-screen">
+            <div className=" w-full bg-gradient-to-b from-button to-[#355EA9] h-screen">
               <FilterBoardgames
                 boardgamesList={boardgamesList}
                 sortedBoardgamesList={sortedBoardgamesList}
@@ -111,7 +111,7 @@ export default function App() {
           {/* Bordspellen balk */}
           <div className="w-full lg:w-4/5 ml-auto">
             {/* Zoekbalk */}
-            <div className="bg-[#2C2F44] h-16 border-b border-gray-600 flex items-center fixed w-full lg:w-4/5 z-40">
+            <div className="bg-button h-16 border-b border-gray-500 flex items-center fixed w-full lg:w-4/5 z-40">
               <div className="w-3/12 flex items-center justify-center">
                 <IoFilter
                   className="w-8 h-8 hover:cursor-pointer lg:hidden"
@@ -133,7 +133,8 @@ export default function App() {
                   boardgamesList={searchedBoardgames}
                   setSortedBoardgamesList={setSortedBoardgamesList}
                 />
-                {(currentUserRole === "editor" || currentUserRole === "admin") && (
+                {(currentUserRole === "editor" ||
+                  currentUserRole === "admin") && (
                   <div>
                     <IoAdd
                       className="w-8 h-8 hover:cursor-pointer block"

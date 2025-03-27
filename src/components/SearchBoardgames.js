@@ -40,7 +40,7 @@ export default function SearchBoardgames({
         <input
           type="text"
           id="default-search"
-          className="block w-full py-2 ps-10 text-xl border rounded-lg bg-gray-700 border-gray-600 "
+          className="block w-full py-2 ps-10 text-xl border rounded-lg bg-button border-border "
           placeholder="Zoeken..."
           value={searchQuery}
           onChange={handleSearchChange}
