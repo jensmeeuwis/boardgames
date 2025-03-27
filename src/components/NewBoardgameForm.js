@@ -4,9 +4,9 @@ import { storage } from "../config/firebase";
 import { IoMdClose } from "react-icons/io";
 import { getAuth } from "firebase/auth";
 
-export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
+export default function NewBoardgameForm({ handleAddBoardgame, toggleAddNewForm, username }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
-  const [newBoardgameLocation, setNewBoardgameLocation] = useState("");
+  const [newBoardgameLocation, setNewBoardgameLocation] = useState(`${username}`);
   const [newBoardgameMinPlayers, setNewBoardgameMinPlayers] = useState(0);
   const [newBoardgameMaxPlayers, setNewBoardgameMaxPlayers] = useState(0);
   const [newBoardgameGamemode, setNewBoardgameGamemode] = useState("");
@@ -117,11 +117,12 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
             <input
               type="text"
               id="name"
-              className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+              className="bg-button hover:bg-border border border-border hover:cursor-not-allowed text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="Jens"
               value={newBoardgameLocation}
               onChange={(e) => setNewBoardgameLocation(e.target.value)}
               required
+              readOnly
             />
           </div>
         </div>
@@ -258,7 +259,7 @@ export default function NewBoardgameForm({ handleAddBoardgame, toggleForm }) {
           <input
             type="file"
             id="name"
-            className="bg-button hover:bg-border border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+            className="bg-button hover:bg-border border border-border hover:cursor-pointer text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
             onChange={(e) => setSelectedImage(e.target.files[0])}
           />
         </div>

@@ -35,7 +35,7 @@ export default function BoardgameList({
   return (
     <div className="max-w-7xl mx-auto">
       <button
-        className="fixed z-40 right-8 bg-button border border-border hover:bg-border transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
+        className="fixed z-40 top-24 right-8 bg-button border border-border hover:bg-border transition duration-300 rounded-full w-16 h-16 flex items-center justify-center"
         onClick={() => goToTop()}
       >
         <HiOutlineArrowUp />
@@ -57,7 +57,7 @@ export default function BoardgameList({
         )}
       </AnimatePresence> */}
       <h1 className="mb-5">Aantal resultaten: {boardgames.length}</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
         <AnimatePresence initial={false}>
           {(randomBoardgame.length > 0 ? randomBoardgame : boardgames).map(
             (boardgame) => (
@@ -105,8 +105,8 @@ export default function BoardgameList({
 
                     <div className="flex-grow"></div>
 
-                    <div className="grid grid-cols-2 text-gray-300">
-                      <div className="mb-2 flex">
+                    <div className="flex flex-col gap-2 text-gray-300">
+                      <div className="flex">
                         <HiOutlineUsers className="w-6 h-6" />
                         <p className="ml-2">
                           {boardgame.minPlayers === boardgame.maxPlayers
@@ -114,12 +114,12 @@ export default function BoardgameList({
                             : `${boardgame.minPlayers}-${boardgame.maxPlayers}`}
                         </p>
                       </div>
-                      <div className="mb-2 flex">
+                      <div className="flex">
                         <BsHouse className="w-6 h-6" />
                         <p className="ml-2">{boardgame.location}</p>
                       </div>
 
-                      <div className="mb-2 flex">
+                      <div className="flex">
                         <IoMdStopwatch className="w-6 h-6" />
                         <p className="ml-2">
                           {boardgame.minDuration === boardgame.maxDuration
@@ -127,7 +127,7 @@ export default function BoardgameList({
                             : `${boardgame.minDuration}-${boardgame.maxDuration}`}
                         </p>
                       </div>
-                      <div className="mb-2 flex">
+                      <div className="flex">
                         <IoGameControllerOutline className="w-6 h-6" />
                         <p className="ml-2">{boardgame.gamemode}</p>
                       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getBoardgames, addBoardgame, deleteBoardgame } from "./api/boardgames";
-import { getRoles, addRole } from "./api/roles";
+import { getRoles } from "./api/roles";
 import BoardgameList from "./components/BoardgameList";
 import NewBoardgameForm from "./components/NewBoardgameForm";
 import Auth from "./components/Auth";
@@ -18,6 +18,7 @@ export default function App() {
   const [searchedBoardgames, setSearchedBoardgames] = useState([]);
   const [filteredBoardgames, setFilteredBoardgames] = useState([]);
   const [randomBoardgame, setRandomBoardgame] = useState([]);
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -33,7 +34,10 @@ export default function App() {
     getRoles().then((data) => {
       setRolesList(data);
     });
-  }, []);
+    setUsername(
+      rolesList.find((role) => role.userId === auth.currentUser?.uid)?.username
+    );
+  }, [rolesList]);
 
   useEffect(() => {
     getBoardgames().then((data) => {
@@ -88,6 +92,7 @@ export default function App() {
               <NewBoardgameForm
                 handleAddBoardgame={handleAddBoardgame}
                 toggleForm={toggleForm}
+                username={username}
               />
             </div>
           )}
@@ -167,7 +172,12 @@ export default function App() {
           </div>
         </div>
       ) : (
-        <Auth user={user} setUser={setUser} />
+        <Auth
+          user={user}
+          setUser={setUser}
+          username={username}
+          setUsername={setUsername}
+        />
       )}
     </div>
   );

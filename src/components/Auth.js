@@ -5,8 +5,9 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { motion, AnimatePresence } from "motion/react";
+import { addRole } from "../api/roles";
 
-export default function Auth({ user, setUser }) {
+export default function Auth({ user, setUser, username, setUsername }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showLogin, setShowLogin] = useState(true);
@@ -28,11 +29,22 @@ export default function Auth({ user, setUser }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      await handleAddRole({ userId: user.uid, role: "viewer", username: username });
+  
+      setUser(user);
     } catch (error) {
-      console.error("Error signing in: ", error);
+      console.error("Error signing up: ", error);
     }
   };
+  
+
+  const handleAddRole = async (roleData) => {
+    await addRole(roleData);
+  }
+
 
   const toggleForm = () => {
     setShowLogin(!showLogin);
@@ -94,6 +106,18 @@ export default function Auth({ user, setUser }) {
               <h1 className="text-3xl font-medium">
                 {titleText ? "Inloggen" : "Registreren"}
               </h1>
+              {!titleText && (
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium">Naam</label>
+                  <input
+                    id="username"
+                    className="bg-button border border-border text-sm rounded-lg block w-full p-2.5 placeholder-gray-400"
+                    placeholder="Jens"
+                    onChange={(e) => setUsername(e.target.value)}
+                    // required
+                  />
+                </div>
+              )}
               <div>
                 <label className="block mb-2 text-sm font-medium">Email</label>
                 <input
@@ -118,6 +142,7 @@ export default function Auth({ user, setUser }) {
                   required
                 />
               </div>
+
               <motion.button
                 type="submit"
                 className="block w-auto py-2 px-5 text-lg border rounded-lg bg-button border-border hover:bg-border transition duration-300"
