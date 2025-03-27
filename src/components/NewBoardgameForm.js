@@ -4,7 +4,7 @@ import { storage } from "../config/firebase";
 import { IoMdClose } from "react-icons/io";
 import { getAuth } from "firebase/auth";
 
-export default function NewBoardgameForm({ handleAddBoardgame, toggleAddNewForm, username }) {
+export default function NewBoardgameForm({ handleAddBoardgame, toggleForm, username }) {
   const [newBoardgameName, setNewBoardgameName] = useState("");
   const [newBoardgameLocation, setNewBoardgameLocation] = useState(`${username}`);
   const [newBoardgameMinPlayers, setNewBoardgameMinPlayers] = useState(0);
